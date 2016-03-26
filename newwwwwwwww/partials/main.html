@@ -1,0 +1,51 @@
+<md-sidenav md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left"
+            class="md-whiteframe-z2 md-sidenav-left">
+  <md-toolbar md-theme="custom" class="md-hue-1 md-whiteframe-z2" style="background-color:white">
+    <md-button layout="row" layout-align="center center" class="md-toolbar-tools md-warn">
+      <h1>D.F</h1>
+    </md-button>
+  </md-toolbar>
+      <md-button ng-repeat="item in menuItems" layout="column" layout-align="center center" ui-sref-active="md-warn" 
+       ui-sref="{{item.state}}" >
+          <div hide-sm hide-md class="md-tile-content" >
+                <md-icon md-svg-icon='{{item.icon}}'></md-icon>
+          </div>
+          </div>
+          <div class="md-tile-content">
+              {{item.name}}
+          </div>
+      </md-button>
+</md-sidenav>
+
+<div layout="column" flex>
+    <md-toolbar layout="row" layout-align="end center" style="background-color: #7D7D7D" ng-show="!showSearch">
+        <md-button show-gt-smclass="toolbar-button" aria-label="Search" ng-click="showSearch = !showSearch">
+            <md-icon md-svg-icon='img/ic_search_24px.svg'></md-icon>             
+        </md-button> 
+        <md-button hide-sm show-gt-sm aria-label="Settings" ng-click="vm.toggleRightSidebar()">
+            <md-icon hide-sm  md-svg-icon='img/ic_menu_24px.svg'></md-icon>
+        </md-button>
+        <md-button hide-gt-sm ng-click="vm.toggleItemsList()" aria-label="Menu">
+            <md-icon  md-svg-icon='img/ic_menu_24px.svg'></md-icon>
+        </md-button>
+    </md-toolbar>
+
+    <md-toolbar class="md-hue-1" ng-show="showSearch" style="background-color:white">
+        <div class="md-toolbar-tools">
+          <md-button flex="20"  ng-click="showSearch = !showSearch" aria-label="Back">
+             <md-icon style="color:black" md-svg-icon='img/ic_arrow_back_24px.svg'></md-icon>
+          </md-button>           
+          <md-input-container md-theme="input" flex style="height: 33px;">       
+         	<input ng-model="search.who" placeholder="search">
+          </md-input-container>
+          <md-button flex="20" aria-label="Search" ng-click="showSearch = !showSearch">
+            <md-icon  style="color:black" md-svg-icon='img/ic_search_24px.svg'></md-icon>
+          </md-button>
+        </div>
+       
+      </md-toolbar>
+
+    <md-content flex class="md-padding page-content">
+        <div ui-view></div>
+    </md-content>
+</div>

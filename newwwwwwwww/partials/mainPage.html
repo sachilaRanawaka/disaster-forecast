@@ -1,0 +1,112 @@
+<style type="text/css">
+	md-list-item.md-3-line > .md-no-style {
+		height: auto; 
+		min-height: 50px;
+	}
+</style>
+
+
+<div style=" width:100%; height:100%" flex>
+	<div layout="column" flex>
+	    <md-toolbar flex layout="row" layout-align="start center" style="background-color: #7D7D7D" ng-show="!showSearch">
+
+	        <md-button  flex="5" hide-gt-sm ng-click="openLeftMenu()" aria-label="Menu">
+	            <md-icon  md-svg-icon='img/ic_menu_24px.svg'></md-icon>
+	        </md-button>
+
+	        <md-button flex="5" hide-sm show-gt-sm aria-label="Settings" ng-click="openLeftMenu()">
+	            <md-icon hide-sm  md-svg-icon='img/ic_menu_24px.svg'></md-icon>
+	        </md-button>
+	        <div flex > <span> Disaster Forecast</span></div>
+	        <md-button flex="10 " show-gt-smclass="toolbar-button" aria-label="Search" ng-click="showSearch = !showSearch">
+	            <md-icon md-svg-icon='img/ic_search_24px.svg'></md-icon>             
+	        </md-button> 
+	    </md-toolbar>
+	</div>
+	<md-toolbar class="md-hue-1" ng-show="showSearch" style="background-color:white">
+        <div class="md-toolbar-tools">
+          <md-button flex="5"  ng-click="showSearch = !showSearch" aria-label="Back">
+             <md-icon style="color:black" md-svg-icon='img/ic_arrow_back_24px.svg'></md-icon>
+          </md-button>           
+          <md-input-container md-theme="input" flex style="height: 33px;">       
+         	<input ng-model="search.who" placeholder="search">
+          </md-input-container>
+          <md-button flex="5" aria-label="Search" ng-click="showSearch = !showSearch">
+            <md-icon  style="color:black" md-svg-icon='img/ic_search_24px.svg'></md-icon>
+          </md-button>
+          <div flex="20"></div>
+        </div>
+       
+    </md-toolbar>
+
+<!-- 	<div  flex="20" style="height:10%;   position: relative;left: 50px;top: 50px;">
+		 
+		 	  <md-whiteframe style="height:100%;" class="md-whiteframe-1dp"  flex layout layout-align="center center">
+			     <md-content  style="height:100%;" layout layout-align="center center" flex>
+			     	<div flex="20">			     		
+                        <md-button aria-label="menu button" flex  class="md-icon-button launch" ng-click="openLeftMenu()" >
+                           <md-icon md-svg-icon="img/ic_menu_24px.svg"></md-icon>
+                        </md-button>
+			     	</div>
+			     	<div flex>                           
+                        <input placeholder="search weather" style="border: 0;font: inherit;background: transparent; outline:none;">              
+			     	</div>
+			     </md-content>
+			  </md-whiteframe>
+	 	  
+	</div> -->
+
+	<md-sidenav md-component-id="left" md-is-open="isSidenavOpen" class="md-sidenav-left">
+           <!-- <v-accordion class="vAccordion--default" multiple style="width: 90%;margin-left: 5%;">
+
+			  <v-pane>
+			    <v-pane-header>
+			      Conditionas 
+			    </v-pane-header>
+
+			    <v-pane-content>
+	              <md-list>
+	                <md-list-item class="md-3-line" ng-repeat="item in wetherConditions"  style="min-height: 10px;">
+	                   <div class="md-list-item-text" layout="column">
+	                      <h3>{{item.name}}</h3> 
+	                   </div>
+	                   <md-checkbox ng-model="item.checkbox" aria-label="weather conditions">
+					   </md-checkbox>
+	                   <md-divider ></md-divider>
+	                </md-list-item>
+	             </md-list>
+	             </v-pane-content>
+	             <v-pane-header >
+	             	<div ng-click="moveToDashboard()">
+	             		Dashboard
+	             	</div>
+	             </v-pane-header>
+			  </v-pane>		 
+
+			 
+			</v-accordion> -->
+
+	            <md-divider></md-divider>
+				<md-list>
+	                <md-list-item class="md-3-line" ng-repeat="item in wetherConditions"  style="min-height: 10px;">
+	                	<md-icon md-svg-icon="{{item.icon}}" style="width:10px; height:10px"></md-icon>
+	                   <div class="md-list-item-text" layout="column">
+	                      <h3>{{item.name}}</h3> 
+	                   </div>
+	                   <md-checkbox ng-model="item.checkbox" aria-label="weather conditions">
+					   </md-checkbox> 	
+	                </md-list-item>
+
+		            <md-divider></md-divider>
+		            <md-list-item class="md-3-line"   style="min-height: 10px;">
+		            	<md-icon md-svg-icon="img/rain.svg"></md-icon>	            	
+			            <div class="md-list-item-text" layout="column" ng-click="moveToDashboard()">
+			             	<h3>Dashboard</h3>	
+			             </div>
+		            </md-list-item>
+	            </md-list>
+
+	            <md-divider></md-divider>
+     </md-sidenav>
+	
+</div>

@@ -1,0 +1,1 @@
+var rasm = angular.module('weatherApp', ['ngMaterial','ui.router','highcharts-ng','ngAnimate','vAccordion']);
