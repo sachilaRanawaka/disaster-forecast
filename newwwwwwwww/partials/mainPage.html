@@ -38,53 +38,9 @@
         </div>
        
     </md-toolbar>
-
-<!-- 	<div  flex="20" style="height:10%;   position: relative;left: 50px;top: 50px;">
-		 
-		 	  <md-whiteframe style="height:100%;" class="md-whiteframe-1dp"  flex layout layout-align="center center">
-			     <md-content  style="height:100%;" layout layout-align="center center" flex>
-			     	<div flex="20">			     		
-                        <md-button aria-label="menu button" flex  class="md-icon-button launch" ng-click="openLeftMenu()" >
-                           <md-icon md-svg-icon="img/ic_menu_24px.svg"></md-icon>
-                        </md-button>
-			     	</div>
-			     	<div flex>                           
-                        <input placeholder="search weather" style="border: 0;font: inherit;background: transparent; outline:none;">              
-			     	</div>
-			     </md-content>
-			  </md-whiteframe>
-	 	  
-	</div> -->
-
+ 
 	<md-sidenav md-component-id="left" md-is-open="isSidenavOpen" class="md-sidenav-left">
-           <!-- <v-accordion class="vAccordion--default" multiple style="width: 90%;margin-left: 5%;">
-
-			  <v-pane>
-			    <v-pane-header>
-			      Conditionas 
-			    </v-pane-header>
-
-			    <v-pane-content>
-	              <md-list>
-	                <md-list-item class="md-3-line" ng-repeat="item in wetherConditions"  style="min-height: 10px;">
-	                   <div class="md-list-item-text" layout="column">
-	                      <h3>{{item.name}}</h3> 
-	                   </div>
-	                   <md-checkbox ng-model="item.checkbox" aria-label="weather conditions">
-					   </md-checkbox>
-	                   <md-divider ></md-divider>
-	                </md-list-item>
-	             </md-list>
-	             </v-pane-content>
-	             <v-pane-header >
-	             	<div ng-click="moveToDashboard()">
-	             		Dashboard
-	             	</div>
-	             </v-pane-header>
-			  </v-pane>		 
-
-			 
-			</v-accordion> -->
+    
 
 	            <md-divider></md-divider>
 				<md-list>
@@ -108,5 +64,23 @@
 
 	            <md-divider></md-divider>
      </md-sidenav>
-	
+     	<div ng-show="showSrilankaMap">
+
+     		<div  layout="row" layout-align="center center" flex style="margin-top: 50px;">
+     		<div flex="30"></div>
+     		<div flex id="mapdiv" style="width: 900px; height: 700px;"></div>
+	     	</div>
+
+	     	<div style="background-color:white; z-index: 0;  position: relative; width: 120px; height: 15px;left: 410px;top: -15px;">
+	     	</div>
+	     	<div style="background-color:white; z-index: 0;  position: relative;width: 30px;height: 120px;left: 417px;top: -710px;">     		
+	     	</div>
+     	</div>
+     	<div ng-show="showDistrict"  layout="row" layout-align="center center" flex>
+     		<div flex="20"></div>
+     		<div flex>
+     			<md-icon md-svg-src = 'img/districts/{{districtName}}'  flex style="width: 600px; height: 600px;"></md-icon>
+     		</div>
+     	</div>
+     	
 </div>
