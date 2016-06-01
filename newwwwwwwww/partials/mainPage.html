@@ -12,12 +12,8 @@
 
 	        <md-button  flex="5" hide-gt-sm ng-click="openLeftMenu()" aria-label="Menu">
 	            <md-icon  md-svg-icon='img/ic_menu_24px.svg'></md-icon>
-	        </md-button>
-
-	        <md-button flex="5" hide-sm show-gt-sm aria-label="Settings" ng-click="openLeftMenu()">
-	            <md-icon hide-sm  md-svg-icon='img/ic_menu_24px.svg'></md-icon>
-	        </md-button>
-	        <div flex > <span> Disaster Forecast</span></div>
+	        </md-button> 
+	        <div flex style="margin-left: 40px;" > <span> Disaster Forecast</span></div>
 	        <md-button flex="10 " show-gt-smclass="toolbar-button" aria-label="Search" ng-click="showSearch = !showSearch">
 	            <md-icon md-svg-icon='img/ic_search_24px.svg'></md-icon>             
 	        </md-button> 
@@ -43,27 +39,74 @@
     
 
 	            <md-divider></md-divider>
-				<md-list>
-	                <md-list-item class="md-3-line" ng-repeat="item in wetherConditions"  style="min-height: 10px;">
-	                	<md-icon md-svg-icon="{{item.icon}}" style="width:10px; height:10px"></md-icon>
-	                   <div class="md-list-item-text" layout="column">
-	                      <h3>{{item.name}}</h3> 
-	                   </div>
-	                   <md-checkbox ng-model="item.checkbox" aria-label="weather conditions">
-					   </md-checkbox> 	
-	                </md-list-item>
+	            <div style="height:15px;" ></div>
+	            <v-accordion class="vAccordion--default">
 
-		            <md-divider></md-divider>
+				  <v-pane ng-repeat="pane in wetherConditions"  >
+				    <v-pane-header style=" height: 40px;">
+				     <span style="    margin-left: 60px;"> {{pane.type}}</span> 
+				    </v-pane-header>
+				    <v-pane-content>  
+				      <md-radio-group ng-model="selectedConditionID" >
+				        <md-list>
+			                <md-list-item class="md-3-line" ng-repeat="subpane in pane.conditions"  style="min-height: 10px;">
+			                	<md-icon md-svg-icon="{{subpane.icon}}" style="width:10px; height:10px"></md-icon>
+			                   	<div class="md-list-item-text" layout="column">
+			                      <h3>{{subpane.name}}</h3> 
+			                   	</div>
+			                   	<md-radio-button flex value="{{subpane.name}}" ng-model="subpane.name" class="md-primary" ng-click="closeSideNav(subpane.name)"> 
+					        	</md-radio-button>  	
+			                </md-list-item>
+
+				            <md-divider></md-divider>				            
+			            </md-list> 
+					  </md-radio-group> 
+				    </v-pane-content>
+				  </v-pane>
+
+				</v-accordion>
+
+				<md-list>	                
 		            <md-list-item class="md-3-line"   style="min-height: 10px;">
 		            	<md-icon md-svg-icon="img/rain.svg"></md-icon>	            	
-			            <div class="md-list-item-text" layout="column" ng-click="moveToDashboard()">
+			            <div class="md-list-item-text" layout="column" ng-click="moveToDashboard()" style="margin-left: -10px;margin-top: 0px;">
 			             	<h3>Dashboard</h3>	
 			             </div>
 		            </md-list-item>
+	            	<md-divider></md-divider>
 	            </md-list>
 
-	            <md-divider></md-divider>
      </md-sidenav>
+
+     	<div flex layout="row" layout-align="start start"   >
+     		 
+     		 <md-whiteframe class="md-whiteframe-10dp" flex-sm="45" flex-gt-sm="45" flex-gt-md="45" layout layout-align="center center">
+     		 	<md-button style="width:10px" hide-sm ng-click="openLeftMenu()" >
+		            <md-icon  md-svg-icon='img/ic_menu_24px.svg'></md-icon>
+		        </md-button>
+			    <md-input-container flex>
+			        <label>Year</label>
+			        <md-select ng-model="searchYear"  ng-change="filterCondition()">
+			          <md-optgroup label="Year">
+			            <md-option value="2015">2015 </md-option>
+			            <md-option value="2014">2014 </md-option>
+			            <md-option value="2013">2013 </md-option>
+			          </md-optgroup>
+			        </md-select>
+			    </md-input-container>
+
+			    <md-input-container flex>
+			        <label>Month</label>
+			        <md-select ng-model="searchMonth"  ng-change="filterCondition()">
+			          <md-optgroup label="Month">
+			            <md-option value="January">January </md-option>
+			            <md-option value="February">February </md-option>
+			            <md-option value="March">March </md-option>
+			          </md-optgroup>
+			        </md-select>
+			    </md-input-container>
+			  </md-whiteframe>
+     	</div>
      	<div ng-show="showSrilankaMap">
 
      		<div  layout="row" layout-align="center center" flex style="margin-top: 50px;">

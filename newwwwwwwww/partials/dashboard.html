@@ -1,8 +1,26 @@
+<style type="text/css">
+	div.inline { float:left; }
+	.clearBoth { clear:both; }
+</style>
 <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column">
-<div ng-click="callPython()">
-	dashbord
+<div> 
+	<md-button   class="md-primary md-hue-1"  ng-click="toggleRightSidebar()" style="margin-left: 1095px;">
+		<md-icon  md-svg-icon='img/bar-chart-7.svg'></md-icon>
+	</md-button>
+    <div class="inline" ng-repeat="item in dashboardChrts" class="padded" md-whiteframe="24" style=" width:500px;height:400px; margin-right: 50px;margin-bottom: 50px;">
+    	<div>
+    		<md-button  style="padding-left: 450px;" ng-click="removeChart($index)" >
+		        <md-icon  md-svg-icon='img/ic_cancel_24px.svg'></md-icon>
+		    </md-button>
+    	</div>
+    		
+          <md-button ng-show="item.showBtn" class="md-primary md-hue-1" style="margin-top:175px; margin-left:150px; " ng-click="toggleRightSidebar()">add chart</md-button>
 
+          <div style="width: 70px;height: 12px;background-color: white;position: relative;left: 420px;top: 350px;z-index: 10;">
+          </div>
+          <highchart ng-show="item.showChart" id="chart1" config="item.highchartsNG"  style=" width:500px;height:350px;"></highchart>
+    </div> 
 
-       <highchart id="chart1" config="highchartsNG"></highchart>
+       <!-- <highchart id="chart1" config="highchartsNG"></highchart> -->
 </div>
 </md-content>

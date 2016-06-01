@@ -31,23 +31,58 @@
                <label>Y Axsis</label>
                <md-select  ng-model="yAxsis" flex>
                   <md-optgroup label="Y Axsis">
-                  <md-option value="scale1"> 1 Scale</md-option>
-                  <md-option value="scale2"> 2 Scale</md-option>
-                  <md-option value="scale3"> 3 Scale</md-option>
+                  <md-option value="1"> 1 Scale</md-option>
+                  <md-option value="2"> 2 Scale</md-option>
+                  <md-option value="3"> 3 Scale</md-option>
                </md-select>
             </md-input-container> 
          </div>
-         <div layout-gt-sm="row"> 
+         <div layout-gt-sm="row">  
+            <md-radio-group ng-model="XAxsis" flex ng-change="chngeBtn = !chngeBtn">
+               <div layout-gt-sm="row"> 
+                  <div flex ='25'></div> 
+                  <md-radio-button flex value="Months" class="md-primary">Months</md-radio-button>
+                  <md-radio-button flex value="Years" class="md-primary">Years</md-radio-button>
+               </div>                
+            </md-radio-group>
+         </div> 
+
+        
+         <div layout-gt-sm="row" ng-show="chngeBtn"> 
             <div flex ='25'></div>
-            <md-input-container class="md-block" flex-gt-sm >
-               <label>X Axsis</label>
-               <md-select  ng-model="XAxsis" flex>
-                  <md-optgroup label="X Axsis">
-                  <md-option value="Months"> Months</md-option>
-                  <md-option value="Years"> Years</md-option> 
+             <md-input-container flex class="md-block" flex-gt-sm >
+               <label>Months</label>
+               <md-select  ng-model="XAxsisAddition" flex>
+                  <md-optgroup label="Months">
+                  <md-option value="January">January</md-option>
+                  <md-option value="February">February</md-option>
+                  <md-option value="March">March</md-option>
+               </md-select>
+            </md-input-container>  
+         </div>   
+
+
+         <div layout-gt-sm="row" ng-hide="chngeBtn"> 
+            <div flex ='25'></div>
+            <md-input-container flex  class="md-block" flex-gt-sm >
+               <label>Select Year</label>
+               <md-select  ng-model="XAxsisAddition" flex>
+                  <md-optgroup label="Year"> 
+                  <md-option value="2006">2006</md-option>
+                  <md-option value="2007">2007</md-option>
+                  <md-option value="2008">2008</md-option>
+                  <md-option value="2009">2009</md-option>
+                  <md-option value="2010">2010</md-option>
+                  <md-option value="2011">2011</md-option>
+                  <md-option value="2012">2012</md-option>
+                  <md-option value="2013">2013</md-option>
+                  <md-option value="2014">2014</md-option>
+                  <md-option value="2015">2015</md-option>
+                  <md-option value="2016">2016</md-option>
+                  <md-option value="2017">2017</md-option>
                </md-select>
             </md-input-container> 
-         </div>                  
+         </div>        
       </div>
 
       <div ng-show="barAdditional">
@@ -63,7 +98,47 @@
                </md-select>
             </md-input-container> 
          </div>
+
          <div layout-gt-sm="row"> 
+            <div flex ='25'></div>
+            <md-input-container class="md-block" flex-gt-sm >
+               <label>Scale 1</label>
+               <md-select  ng-model="Scale1" flex>
+                  <md-optgroup label="Scale 1">
+                  <md-option value="Rainfall">Rainfall</md-option>
+                  <md-option value="Temparature">Temparature</md-option>
+                  <md-option value="Humidity">Humidity</md-option>
+                  <md-option value="wind">wind</md-option>
+               </md-select>
+            </md-input-container>  
+         </div>
+         <div layout-gt-sm="row"  ng-if="chartDetails.scaleNum == '3' || chartDetails.scaleNum == '2'" >  
+            <div flex ='25'></div>
+            <md-input-container  class="md-block" flex-gt-sm >
+               <label>Scale 2</label>
+               <md-select  ng-model="$parent.Scale2" flex>
+                  <md-optgroup label="Scale 2">
+                  <md-option value="Rainfall">Rainfall</md-option>
+                  <md-option value="Temparature">Temparature</md-option>
+                  <md-option value="Humidity">Humidity</md-option>
+                  <md-option value="wind">wind</md-option>
+               </md-select>
+            </md-input-container>
+         </div> 
+         <div layout-gt-sm="row"  ng-if="chartDetails.scaleNum == '3'">  
+            <div flex ='25'></div>
+            <md-input-container class="md-block" flex-gt-sm >
+               <label>Scale 3</label>
+               <md-select  ng-model="$parent.Scale3" flex>
+                  <md-optgroup label="Scale 3">
+                  <md-option value="Rainfall">Rainfall</md-option>
+                  <md-option value="Temparature">Temparature</md-option>
+                  <md-option value="Humidity">Humidity</md-option>
+                  <md-option value="wind">wind</md-option>
+               </md-select>
+            </md-input-container> 
+         </div> 
+        <!--  <div layout-gt-sm="row"> 
             <div flex ='25'></div>
             <md-checkbox md-no-ink aria-label="Checkbox No Ink" flex ng-model="weather" class="md-primary">
                Rainfall
@@ -80,7 +155,8 @@
             <md-checkbox md-no-ink aria-label="Checkbox No Ink" flex ng-model="weather4" class="md-primary">
                wind
             </md-checkbox>
-         </div>                  
+         </div>  -->       
+
       </div>
 
 
@@ -90,10 +166,19 @@
             <md-input-container class="md-block" flex-gt-sm >
                <label>Select Year</label>
                <md-select  ng-model="pieYear" flex>
-                  <md-optgroup label="Year">
-                  <md-option value="2005">2005</md-option>
+                  <md-optgroup label="Year"> 
                   <md-option value="2006">2006</md-option>
                   <md-option value="2007">2007</md-option>
+                  <md-option value="2008">2008</md-option>
+                  <md-option value="2009">2009</md-option>
+                  <md-option value="2010">2010</md-option>
+                  <md-option value="2011">2011</md-option>
+                  <md-option value="2012">2012</md-option>
+                  <md-option value="2013">2013</md-option>
+                  <md-option value="2014">2014</md-option>
+                  <md-option value="2015">2015</md-option>
+                  <md-option value="2016">2016</md-option>
+                  <md-option value="2017">2017</md-option>
                </md-select>
             </md-input-container> 
          </div>
@@ -109,7 +194,7 @@
                </md-select>
             </md-input-container> 
          </div>
-         <md-radio-group ng-model="data.group1">
+         <md-radio-group ng-model="group1">
             <div layout-gt-sm="row"> 
                <div flex ='25'></div> 
                <md-radio-button flex value="Rainfall" class="md-primary">Rainfall</md-radio-button>
@@ -136,11 +221,11 @@
       <md-button href ng-click="closeDialog()" class="md-primary">Cancel</md-button>
    </div> 
    <div class="md-actions" layout="row" ng-show="showPie">
-      <md-button href ng-click="changeChartTypes(chartType)" class="md-primary">Next</md-button>
+      <md-button href ng-click="pieAll()" class="md-primary">Next</md-button>
       <md-button href ng-click="closeDialog()" class="md-primary">Cancel</md-button>
    </div> 
    <div class="md-actions" layout="row" ng-show="barAdditional">
-      <md-button href ng-click="changeChartTypes(chartType)" class="md-primary">Next</md-button>
+      <md-button href ng-click="barAll()" class="md-primary">Next</md-button>
       <md-button href ng-click="closeDialog()" class="md-primary">Cancel</md-button>
    </div> 
 
