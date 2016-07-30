@@ -1,0 +1,232 @@
+<md-dialog style="max-width:960px;"  >
+   <md-toolbar class="modal-header">
+      <div class="md-toolbar-tools">
+         <h2>Chart Category</h2>
+         <span flex></span>
+         <md-button href class="md-icon-button" ng-click="closeDialog()">
+            <md-icon md-svg-src="img/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+         </md-button>
+      </div>
+   </md-toolbar>
+   <md-dialog-content style="width:560px;">
+    <div ng-show="showType">
+         <div layout-gt-sm="row"> 
+            <div flex ='25'></div>
+            <md-input-container class="md-block" flex-gt-sm >
+               <label>Select Chart Type</label>
+               <md-select  ng-model="chartType" flex >
+                  <md-optgroup label="Chart types">
+                  <md-option value="barCharts"> Bar charts</md-option>
+                  <md-option value="pieCharts"> Pie charts</md-option>
+                  <md-option value="lineCharts"> Line charts</md-option>
+               </md-select>
+            </md-input-container> 
+
+         </div>                        
+      </div>
+      <div ng-show="showBar">
+         <div layout-gt-sm="row"> 
+            <div flex ='25'></div>
+            <md-input-container class="md-block" flex-gt-sm >
+               <label>Y Axsis</label>
+               <md-select  ng-model="yAxsis" flex>
+                  <md-optgroup label="Y Axsis">
+                  <md-option value="1"> 1 Scale</md-option>
+                  <md-option value="2"> 2 Scale</md-option>
+                  <md-option value="3"> 3 Scale</md-option>
+               </md-select>
+            </md-input-container> 
+         </div>
+         <div layout-gt-sm="row">  
+            <md-radio-group ng-model="XAxsis" flex ng-change="chngeBtn = !chngeBtn">
+               <div layout-gt-sm="row"> 
+                  <div flex ='25'></div> 
+                  <md-radio-button flex value="Months" class="md-primary">Months</md-radio-button>
+                  <md-radio-button flex value="Years" class="md-primary">Years</md-radio-button>
+               </div>                
+            </md-radio-group>
+         </div> 
+
+        
+         <div layout-gt-sm="row" ng-show="chngeBtn"> 
+            <div flex ='25'></div>
+             <md-input-container flex class="md-block" flex-gt-sm >
+               <label>Months</label>
+               <md-select  ng-model="XAxsisAddition" flex>
+                  <md-optgroup label="Months">
+                  <md-option value="January">January</md-option>
+                  <md-option value="February">February</md-option>
+                  <md-option value="March">March</md-option>
+               </md-select>
+            </md-input-container>  
+         </div>   
+
+
+         <div layout-gt-sm="row" ng-hide="chngeBtn"> 
+            <div flex ='25'></div>
+            <md-input-container flex  class="md-block" flex-gt-sm >
+               <label>Select Year</label>
+               <md-select  ng-model="XAxsisAddition" flex>
+                  <md-optgroup label="Year"> 
+                  <md-option value="2006">2006</md-option>
+                  <md-option value="2007">2007</md-option>
+                  <md-option value="2008">2008</md-option>
+                  <md-option value="2009">2009</md-option>
+                  <md-option value="2010">2010</md-option>
+                  <md-option value="2011">2011</md-option>
+                  <md-option value="2012">2012</md-option>
+                  <md-option value="2013">2013</md-option>
+                  <md-option value="2014">2014</md-option>
+                  <md-option value="2015">2015</md-option>
+                  <md-option value="2016">2016</md-option>
+                  <md-option value="2017">2017</md-option>
+               </md-select>
+            </md-input-container> 
+         </div>        
+      </div>
+
+      <div ng-show="barAdditional">
+         <div layout-gt-sm="row"> 
+            <div flex ='25'></div>
+            <md-input-container class="md-block" flex-gt-sm >
+               <label>District</label>
+               <md-select  ng-model="District" flex>
+                  <md-optgroup label="District">
+                  <md-option value="Colombo">Colombo</md-option>
+                  <md-option value="Galle">Galle</md-option>
+                  <md-option value="Kaluthara">Kaluthara</md-option>
+               </md-select>
+            </md-input-container> 
+         </div>
+
+         <div layout-gt-sm="row"> 
+            <div flex ='25'></div>
+            <md-input-container class="md-block" flex-gt-sm >
+               <label>Scale 1</label>
+               <md-select  ng-model="Scale1" flex>
+                  <md-optgroup label="Scale 1">
+                  <md-option value="Rainfall">Rainfall</md-option>
+                  <md-option value="Temparature">Temparature</md-option>
+                  <md-option value="Humidity">Humidity</md-option>
+                  <md-option value="wind">wind</md-option>
+               </md-select>
+            </md-input-container>  
+         </div>
+         <div layout-gt-sm="row"  ng-if="chartDetails.scaleNum == '3' || chartDetails.scaleNum == '2'" >  
+            <div flex ='25'></div>
+            <md-input-container  class="md-block" flex-gt-sm >
+               <label>Scale 2</label>
+               <md-select  ng-model="$parent.Scale2" flex>
+                  <md-optgroup label="Scale 2">
+                  <md-option value="Rainfall">Rainfall</md-option>
+                  <md-option value="Temparature">Temparature</md-option>
+                  <md-option value="Humidity">Humidity</md-option>
+                  <md-option value="wind">wind</md-option>
+               </md-select>
+            </md-input-container>
+         </div> 
+         <div layout-gt-sm="row"  ng-if="chartDetails.scaleNum == '3'">  
+            <div flex ='25'></div>
+            <md-input-container class="md-block" flex-gt-sm >
+               <label>Scale 3</label>
+               <md-select  ng-model="$parent.Scale3" flex>
+                  <md-optgroup label="Scale 3">
+                  <md-option value="Rainfall">Rainfall</md-option>
+                  <md-option value="Temparature">Temparature</md-option>
+                  <md-option value="Humidity">Humidity</md-option>
+                  <md-option value="wind">wind</md-option>
+               </md-select>
+            </md-input-container> 
+         </div> 
+        <!--  <div layout-gt-sm="row"> 
+            <div flex ='25'></div>
+            <md-checkbox md-no-ink aria-label="Checkbox No Ink" flex ng-model="weather" class="md-primary">
+               Rainfall
+            </md-checkbox>
+            <md-checkbox md-no-ink aria-label="Checkbox No Ink" flex ng-model="weather2" class="md-primary">
+               Temparature
+            </md-checkbox>
+         </div> 
+         <div layout-gt-sm="row"> 
+            <div flex ='25'></div>
+            <md-checkbox md-no-ink aria-label="Checkbox No Ink" flex ng-model="weather3" class="md-primary">
+               Humidity
+            </md-checkbox>
+            <md-checkbox md-no-ink aria-label="Checkbox No Ink" flex ng-model="weather4" class="md-primary">
+               wind
+            </md-checkbox>
+         </div>  -->       
+
+      </div>
+
+
+       <div ng-show="showPie">
+         <div layout-gt-sm="row"> 
+            <div flex ='25'></div>
+            <md-input-container class="md-block" flex-gt-sm >
+               <label>Select Year</label>
+               <md-select  ng-model="pieYear" flex>
+                  <md-optgroup label="Year"> 
+                  <md-option value="2006">2006</md-option>
+                  <md-option value="2007">2007</md-option>
+                  <md-option value="2008">2008</md-option>
+                  <md-option value="2009">2009</md-option>
+                  <md-option value="2010">2010</md-option>
+                  <md-option value="2011">2011</md-option>
+                  <md-option value="2012">2012</md-option>
+                  <md-option value="2013">2013</md-option>
+                  <md-option value="2014">2014</md-option>
+                  <md-option value="2015">2015</md-option>
+                  <md-option value="2016">2016</md-option>
+                  <md-option value="2017">2017</md-option>
+               </md-select>
+            </md-input-container> 
+         </div>
+          <div layout-gt-sm="row"> 
+            <div flex ='25'></div>
+            <md-input-container class="md-block" flex-gt-sm >
+               <label>District</label>
+               <md-select  ng-model="District" flex>
+                  <md-optgroup label="District">
+                  <md-option value="Colombo">Colombo</md-option>
+                  <md-option value="Galle">Galle</md-option>
+                  <md-option value="Kaluthara">Kaluthara</md-option>
+               </md-select>
+            </md-input-container> 
+         </div>
+         <md-radio-group ng-model="group1">
+            <div layout-gt-sm="row"> 
+               <div flex ='25'></div> 
+               <md-radio-button flex value="Rainfall" class="md-primary">Rainfall</md-radio-button>
+               <md-radio-button flex value="Temparature" class="md-primary"> Temparature </md-radio-button>
+            </div> 
+            <div layout-gt-sm="row"> 
+               <div flex ='25'></div> 
+               <md-radio-button flex value="Humidity" class="md-primary">Humidity</md-radio-button>
+               <md-radio-button flex value="wind" class="md-primary"> wind </md-radio-button>
+            </div>
+      
+         </md-radio-group>
+
+                       
+      </div>
+
+   </md-dialog-content>
+   <div class="md-actions" layout="row"  ng-show="showType">
+      <md-button href ng-click="changeChartTypes(chartType)" class="md-primary">Next</md-button>
+      <md-button href ng-click="closeDialog()" class="md-primary">Cancel</md-button>
+   </div> 
+   <div class="md-actions" layout="row" ng-show="showBar">
+      <md-button href ng-click="barAddition()" class="md-primary">Next</md-button>
+      <md-button href ng-click="closeDialog()" class="md-primary">Cancel</md-button>
+   </div> 
+   <div class="md-actions" layout="row" ng-show="showPie">
+      <md-button href ng-click="pieAll()" class="md-primary">Next</md-button>
+      <md-button href ng-click="closeDialog()" class="md-primary">Cancel</md-button>
+   </div> 
+   <div class="md-actions" layout="row" ng-show="barAdditional">
+      <md-button href ng-click="barAll()" class="md-primary">Next</md-button>
+      <md-button href ng-click="closeDialog()" class="md-primary">Cancel</md-button>
+   </div> 
+
+</md-dialog>

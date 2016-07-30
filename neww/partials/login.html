@@ -1,0 +1,117 @@
+
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<div class="digin-lgn-wrap animated">
+    <toast></toast>
+    <div class="auth-message-wrap"
+         ng-if="error.isLoading">
+        <div class="loader-body-wrap">
+            <span class="loader2"><span class="loader2-inner"></span></span>
+        </div>
+    </div>
+    <div layout="column" layout-align="center center">
+
+        <div class="digin-login-card animated flipInX">
+            <div layout="row" layout-xs="column">
+                <div flex="45">
+                    <div class="left-main-wrap">
+                        <div class="left-wrap sign-in">
+                            <ul class="bg-bubbles">
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                            <div class="login-logo ">
+                                <img class="animate-circle" src="img/login-logo.png">
+                            </div>
+                            <span class="login-welcome">
+                                Welcome
+                            </span>
+                            <h5>
+                                Disaster Forecaster
+                            </h5>
+
+                            <div class="welcome-link sign-up-link"
+                                 ng-click="onClickSignUp()">
+                                <a href="javascript:void(0)">Sign up now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div flex="55">
+                    <div class="right-wrap">
+                        <div class="header-login">
+                            <div class="login-text-wrap pull-right ">
+                                <h5 id="sliderRight">Sign In</h5>
+                            </div>
+                        </div>
+                        <form name="frmDiginLogin" autocomplete="off">
+                            <div class="login-bdy">
+                                <div class="text-wrap ">
+                                    <div>
+                                        <div class="txt-box-login"
+                                             ng-class="{error:error.isUserName,'':!error.isUserName}">
+                                            <label>User Name</label>
+                                            <div>
+                                                <input type="text"
+                                                       required
+                                                       id="txtUname"
+                                                       name="loginUserName"
+                                                       ng-model="txtUname"
+                                                       placeholder="username@duoworld.com"
+                                                       class="form-control">
+                                            </div>
+                                            <div class="ng-message" ng-messages="frmDiginLogin.loginUserName.$error">
+                                                <div ng-message="required">This is required.</div>
+                                            </div>
+                                        </div>
+                                        <div class="txt-box-login password"
+                                             ng-class="{error:error.isPwd,'':!error.isPwd}">
+                                            <label>Password</label>
+                                            <div>
+                                                <input type="password"
+                                                       name="password"
+                                                       id="password"
+                                                       required
+                                                       ng-model="txtPwd"
+                                                       placeholder="***************"
+                                                       class="form-control">
+                                            </div>
+                                            <div class="ng-message" ng-messages="frmDiginLogin.password.$error">
+                                                <div ng-message="required">This is required.</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="login-help">
+                                            <div class="remember-me">
+                                                Remember me
+                                            </div>
+                                            <div class="forget-pwd">
+                                                Forgot password?
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="login-btn-wrap">
+                                    <a href="javascript:void(0  )"
+                                       ng-click="login()"
+                                       ng-class="{disable:frmDiginLogin.$invalid,activeBtn: !frmDiginLogin.$invalid}"
+                                       class="login-btn">
+                                        Login
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>

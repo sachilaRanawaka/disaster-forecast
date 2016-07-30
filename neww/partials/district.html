@@ -1,0 +1,63 @@
+	
+<div style=" width:100%; height:100%" flex>
+	<div layout="column" flex>
+	    <md-toolbar flex layout="row" layout-align="start center" style="height: 90px; background-color: #38373a;padding-top: 7px;" ng-show="!showSearch">
+
+	        <md-button  flex="5" hide-gt-sm ng-click="openLeftMenu()" aria-label="Menu">
+	            <md-icon  md-svg-icon='img/ic_menu_24px.svg'></md-icon>
+	        </md-button> 
+	        <div flex style="margin-left: 40px;" ng-click="redirectToLogin()" > 
+		        <span class="font-Roboto main-header-forecast"> 
+		        <i class="fa fa-tint" aria-hidden="true"></i>
+			        Disaster Forecast
+			     </span>
+	        </div>  
+	        <div flex="40" class="search-option-wrap"  layout>	        	
+		        <md-input-container flex>
+			        <label style="color:#727173">Year</label>
+			        <md-select ng-model="searchYear"  ng-change="filterCondition()">
+			          <md-optgroup label="Year">
+			            <md-option value="2016">2016 </md-option>
+			            <md-option value="2015">2015 </md-option>
+			            <md-option value="2014">2014 </md-option>
+			            <md-option value="2013">2013 </md-option>
+			            <md-option value="2012">2012 </md-option>
+			            <md-option value="2011">2011 </md-option>
+			            <md-option value="2010">2010 </md-option>
+			            <md-option value="2009">2009 </md-option>
+			            <md-option value="2008">2008 </md-option>
+			            <md-option value="2007">2007 </md-option>
+			            <md-option value="2006">2006 </md-option> 
+			          </md-optgroup>
+			        </md-select>
+				</md-input-container>
+
+				<md-input-container flex>
+			        <label style="color:#727173">Month</label>
+			        <md-select ng-model="searchMonth"  ng-change="filterCondition()">
+			          <md-optgroup label="Month">
+			            <md-option value="January">January </md-option>
+			            <md-option value="February">February </md-option>
+			            <md-option value="March">March </md-option>
+			            <md-option value="April">April </md-option>
+			            <md-option value="May">May </md-option>
+			            <md-option value="June">June </md-option>
+			            <md-option value="July">July </md-option>
+			            <md-option value="August">August </md-option>
+			            <md-option value="September">September </md-option>
+			            <md-option value="October">October </md-option>
+			            <md-option value="November">November </md-option>
+			            <md-option value="December">December </md-option>
+			          </md-optgroup>
+			        </md-select>
+			    </md-input-container>
+	        </div>
+	    </md-toolbar>
+	</div>
+	<div layout="row" layout-align="center center" flex class="animated zoomIn">
+		<div flex="20"></div>
+		<div flex>
+			<md-icon md-svg-src = 'img/districts/{{districtName}}'  flex style="width: 800px; height: 800px;"></md-icon>
+		</div>
+	</div>
+</div>
