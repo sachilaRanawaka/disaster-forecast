@@ -1,63 +1,232 @@
-	
 <div style=" width:100%; height:100%" flex>
-	<div layout="column" flex>
-	    <md-toolbar flex layout="row" layout-align="start center" style="height: 90px; background-color: #38373a;padding-top: 7px;" ng-show="!showSearch">
+   <div layout="column" flex>
+      <md-toolbar flex layout="row" layout-align="start center" style="height: 70px; background-color: #38373a;padding-top: 7px;" ng-show="!showSearch">
+         <md-button  flex="5" hide-gt-sm ng-click="openLeftMenu()" aria-label="Menu">
+            <md-icon  md-svg-icon='img/ic_menu_24px.svg'></md-icon>
+         </md-button>
+         <div flex style="margin-left: 40px;" ng-click="redirectToLogin()" > 
+            <span class="font-Roboto main-header-forecast"> 
+            <i class="fa fa-tint" aria-hidden="true"></i>
+            Disaster Forecast
+            </span>
+         </div>
+         <div flex="40" class="search-option-wrap"  layout>
+            <md-input-container flex>
+               <label style="color:#727173">Year</label>
+               <md-select ng-model="searchYear"  ng-change="filterCondition()">
+                  <md-optgroup label="Year">
+                     <md-option value="2016">2016 </md-option>
+                     <md-option value="2015">2015 </md-option>
+                     <md-option value="2014">2014 </md-option>
+                     <md-option value="2013">2013 </md-option>
+                     <md-option value="2012">2012 </md-option>
+                     <md-option value="2011">2011 </md-option>
+                     <md-option value="2010">2010 </md-option>
+                     <md-option value="2009">2009 </md-option>
+                     <md-option value="2008">2008 </md-option>
+                     <md-option value="2007">2007 </md-option>
+                     <md-option value="2006">2006 </md-option>
+                  </md-optgroup>
+               </md-select>
+            </md-input-container>
+            <md-input-container flex>
+               <label style="color:#727173">Month</label>
+               <md-select ng-model="searchMonth"  ng-change="filterCondition()">
+                  <md-optgroup label="Month">
+                     <md-option value="January">January </md-option>
+                     <md-option value="February">February </md-option>
+                     <md-option value="March">March </md-option>
+                     <md-option value="April">April </md-option>
+                     <md-option value="May">May </md-option>
+                     <md-option value="June">June </md-option>
+                     <md-option value="July">July </md-option>
+                     <md-option value="August">August </md-option>
+                     <md-option value="September">September </md-option>
+                     <md-option value="October">October </md-option>
+                     <md-option value="November">November </md-option>
+                     <md-option value="December">December </md-option>
+                  </md-optgroup>
+               </md-select>
+            </md-input-container>
+         </div>
+      </md-toolbar>
+   </div>
+  <div layout="row" layout-align="center center" flex class="animated zoomIn" style="margin-top: 15px;">
+   		<div flex ="10"></div>
+      <div flex="40" id="mapdiv" style="width: 500px; height: 550px;"></div>
+      <div flex layout="row" layout-align="start start" style="height: 500px;    margin-left: 25px;">
+        <div layout="column" flex>
+        	<div  flex layout="row" layout-align="start start " >
+	            <span class="font-Roboto disatrict-name">  
+	            {{districtName}}
+	            </span> 				 
+	        </div> 
+	        <div flex layout="row" layout-align="start start" style="margin-top: 30px;">
+	        	<span class="weather-header" >  
+	            	Weather Forecasting
+	            </span>   
+	        </div> 
 
-	        <md-button  flex="5" hide-gt-sm ng-click="openLeftMenu()" aria-label="Menu">
-	            <md-icon  md-svg-icon='img/ic_menu_24px.svg'></md-icon>
-	        </md-button> 
-	        <div flex style="margin-left: 40px;" ng-click="redirectToLogin()" > 
-		        <span class="font-Roboto main-header-forecast"> 
-		        <i class="fa fa-tint" aria-hidden="true"></i>
-			        Disaster Forecast
-			     </span>
-	        </div>  
-	        <div flex="40" class="search-option-wrap"  layout>	        	
-		        <md-input-container flex>
-			        <label style="color:#727173">Year</label>
-			        <md-select ng-model="searchYear"  ng-change="filterCondition()">
-			          <md-optgroup label="Year">
-			            <md-option value="2016">2016 </md-option>
-			            <md-option value="2015">2015 </md-option>
-			            <md-option value="2014">2014 </md-option>
-			            <md-option value="2013">2013 </md-option>
-			            <md-option value="2012">2012 </md-option>
-			            <md-option value="2011">2011 </md-option>
-			            <md-option value="2010">2010 </md-option>
-			            <md-option value="2009">2009 </md-option>
-			            <md-option value="2008">2008 </md-option>
-			            <md-option value="2007">2007 </md-option>
-			            <md-option value="2006">2006 </md-option> 
-			          </md-optgroup>
-			        </md-select>
-				</md-input-container>
+      		<div flex layout="row" layout-align="start start " style="margin-left: 75px;margin-top: 10px;" > 	       	 
+	       		<span class="disaster-label">
+	       			Possible Weather can be occure is 
+	       		</span>
+	         </div>       
+      		<div flex layout="row" layout-align="start start " style="margin-left: -30px;margin-top: 10px;" > 
+	       		<skycon style="margin-left: 60px;" ng-repeat="item in CurrentWeather" icon="item.icon" size="item.iconSize" animated="true" color="item.color"></skycon>
+	       		<span class="weather-condition">
+	       			{{weatherCondition}}
+	       		</span>
+	         </div>       
+      		<div flex layout="row" layout-align="start start " style="margin-left: 75px;" > 	       	 
+	       		<span class="accuracy-header">
+	       			mostly rainy
+	       			 <span>
+	       				 Accuracy Level - 78%
+	       			</span>
+	       		</span>
+	         </div>	 
+	        <div flex layout="row" layout-align="start start"  style="margin-top: 30px;" >
+	        	<span class="weather-header" >  
+	            	Disaster Forecasting
+	            </span>   
+	        </div>       
+      		<div flex layout="row" layout-align="start start " style="margin-left: 75px;margin-top: 10px;" > 	       	 
+	       		<span class="disaster-label">
+	       			Possible Disaster can be occure is 
+	       		</span>
+	         </div>    
+      		<div flex layout="row" layout-align="start start " style="margin-left: 35px;margin-top: 10px;" > 	       	 
+	       		<span class="disaster-value">
+	       			Landslide 
+	       		</span>
+	         </div>      
+      		<div flex layout="row" layout-align="start start " style="    margin-left: 75px; margin-top: 10px;" > 	       	 
+	       		<span class="accuracy-header">
+	       			mostly rainy
+	       			 <span>
+	       				 Accuracy Level - 78%
+	       			</span>
+	       		</span>
+	         </div>
+        </div>
+      </div>
+   </div>
+   <div flex layout="column" layout-align="center center" class="animated zoomIn"" style="margin-top: 80px;">
+   			<div layout="column" flex layout-align="center center">
+   			<div flex = "15"></div>
+   			<div flex layout="column">
+   				<div flex layout="row" layout-align="center center">
+   					<span class="weather-header">
+   						FORECAST LINES
+   					</span> 
+   				</div>
+   				<div flex layout="row" layout-align="center center">
+   					<div flex = "15"></div>
+   					<div flex   layout="row" layout-align="center center" style="text-align: center;    margin-top: 15px; font-family: 'Roboto Condensed', sans-serif;">
+						 detailed forecast graphs for this location. These graphs show you the range of possible forecasts overlaid with our "best guess", so you can see at a glance what will happen over the course of the next week and where we are most– and least–confident in our predictions.
+   						
+   					</div>
+					<div flex = "15"></div>
+   				</div>
+   			</div>
+   			
+   			<div flex = "15"></div>
+   		</div>
+   		<div layout="row" flex style="width:100%">
+   				   <div flex = "15"></div>
+				      <div flex >
+				         <md-whiteframe class="md-whiteframe-11dp"  flex layout layout-align="center center" style="margin-top: 55px;">
+				            <md-table-container flex>
+				               <table md-table md-row-select ng-model="selected" multiple md-progress="promise">
+				                  <thead md-head >
+				                     <tr md-row>
+				                        <th md-column ><span class="column-header">Year</span></th>
+				                        <th md-column ><span class="column-header">District</span></th>
+				                        <th md-column ><span class="column-header">Type</span> </th>
+				                        <th md-column ><span class="column-header">Value</span></th>
+				                     </tr>
+				                  </thead>
+				                  <tbody md-body>
+				                     <tr md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="item in allData">
+				                        <td md-cell style="font-family: 'Roboto Condensed', sans-serif;">{{item.Year}}</td>
+				                        <td md-cell style="font-family: 'Roboto Condensed', sans-serif;">{{item.District}}</td>
+				                        <td md-cell style="font-family: 'Roboto Condensed', sans-serif;">{{item.type}}</td>
+				                        <td md-cell style="font-family: 'Roboto Condensed', sans-serif;">{{item.Value}}</td>
+				                     </tr>
+				                  </tbody>
+				               </table>
+				            </md-table-container>
+				         </md-whiteframe>
+				     </div> 
+				     <div flex = "5"></div>
+				     <div flex> 
+				         <highchart  id="chart1" config="weatherPieChrt.highchartsNG"  style="margin-top: 0px;">
+				         </highchart> 
+				     </div>
+				     <div flex = "15"></div>
+   		</div>   
+   </div>
+   <div flex layout="column" layout-align="center center" class="animated zoomIn" >
+   		<div layout="column" flex layout-align="center center">
+   			<div flex = "15"></div>
+   			<div flex layout="column">
+   				<div flex layout="row" layout-align="center center">
+   					<span class="weather-header">
+   						FORECAST LINES
+   					</span> 
+   				</div>
+   				<div flex layout="row" layout-align="center center">
+   					<div flex = "15"></div>
+   					<div flex   layout="row" layout-align="center center" style="text-align: center;    margin-top: 15px; font-family: 'Roboto Condensed', sans-serif;">
+						 detailed forecast graphs for this location. These graphs show you the range of possible forecasts overlaid with our "best guess", so you can see at a glance what will happen over the course of the next week and where we are most– and least–confident in our predictions.
+   						
+   					</div>
+					<div flex = "15"></div>
+   				</div>
+   			</div>
+   			
+   			<div flex = "15"></div>
+   		</div>
+   		<div layout="row" flex style="width:100%">
+   				   <div flex = "15"></div>
+				      <div flex >
+				         <md-whiteframe class="md-whiteframe-11dp"  flex layout layout-align="center center" style="margin-top: 55px;">
+				            <md-table-container flex>
+				               <table md-table md-row-select ng-model="selected" multiple md-progress="promise">
+				                  <thead md-head >
+				                     <tr md-row>
+				                        <th md-column ><span class="column-header">Year</span></th>
+				                        <th md-column ><span class="column-header">District</span></th>
+				                        <th md-column ><span class="column-header">Type</span> </th>
+				                        <th md-column ><span class="column-header">Value</span></th>
+				                     </tr>
+				                  </thead>
+				                  <tbody md-body>
+				                     <tr md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="item in allData">
+				                        <td md-cell style="font-family: 'Roboto Condensed', sans-serif;">{{item.Year}}</td>
+				                        <td md-cell style="font-family: 'Roboto Condensed', sans-serif;">{{item.District}}</td>
+				                        <td md-cell style="font-family: 'Roboto Condensed', sans-serif;">{{item.type}}</td>
+				                        <td md-cell style="font-family: 'Roboto Condensed', sans-serif;">{{item.Value}}</td>
+				                     </tr>
+				                  </tbody>
+				               </table>
+				            </md-table-container>
+				         </md-whiteframe>
+				     </div> 
+				     <div flex = "5"></div>
+				     <div flex> 
+				         <highchart  id="chart1" config="weatherPieChrt.highchartsNG" style="margin-top: 0px;" >
+				         </highchart> 
+				     </div>
+				     <div flex = "15"></div>
+   		</div>   
+   </div>
 
-				<md-input-container flex>
-			        <label style="color:#727173">Month</label>
-			        <md-select ng-model="searchMonth"  ng-change="filterCondition()">
-			          <md-optgroup label="Month">
-			            <md-option value="January">January </md-option>
-			            <md-option value="February">February </md-option>
-			            <md-option value="March">March </md-option>
-			            <md-option value="April">April </md-option>
-			            <md-option value="May">May </md-option>
-			            <md-option value="June">June </md-option>
-			            <md-option value="July">July </md-option>
-			            <md-option value="August">August </md-option>
-			            <md-option value="September">September </md-option>
-			            <md-option value="October">October </md-option>
-			            <md-option value="November">November </md-option>
-			            <md-option value="December">December </md-option>
-			          </md-optgroup>
-			        </md-select>
-			    </md-input-container>
-	        </div>
-	    </md-toolbar>
-	</div>
-	<div layout="row" layout-align="center center" flex class="animated zoomIn">
-		<div flex="20"></div>
-		<div flex>
-			<md-icon md-svg-src = 'img/districts/{{districtName}}'  flex style="width: 800px; height: 800px;"></md-icon>
-		</div>
-	</div>
+   	<div style="background-color:white; z-index: 0;  position: relative; width: 130px; height: 15px;left: 140px;top: -1050px;">
+ 	</div>
+ 	<div style="background-color:white; z-index: 0;  position: relative;width: 41px;height: 120px;left: 139px;top: -1590px;">  
+ 	</div>
+ 	<div style="background-color: white;z-index: 0;position: relative;width: 120px;height: 120px;left: 520px;top: -1710px;">   
+ 
 </div>

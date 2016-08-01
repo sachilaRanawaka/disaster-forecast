@@ -364,7 +364,7 @@ rasm.controller('mainCtrl',['$scope', '$state','$http','$mdSidenav', function($s
 	
 
 	function districtClick(event){  
-    	$state.go('district',{'districtID': event.mapObject.title,'year':$scope.searchYear, 'month':$scope.searchMonth});
+    	$state.go('district',{'districtID': event.mapObject.id,'year':$scope.searchYear, 'month':$scope.searchMonth});
 	}
 	$scope.demo = {
 	    topDirections: ['left', 'up'],

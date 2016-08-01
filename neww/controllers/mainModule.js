@@ -1,1 +1,1 @@
-var rasm = angular.module('weatherApp', ['ngMaterial','ui.router','highcharts-ng','ngAnimate','vAccordion','gridster','ngMessages']);
+var rasm = angular.module('weatherApp', ['ngMaterial','ui.router','highcharts-ng','ngAnimate','vAccordion','gridster','ngMessages','md.data.table','angular-skycons']);

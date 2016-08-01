@@ -175,7 +175,7 @@ md-backdrop.md-sidenav-backdrop {
 .main-header-forecast{
   font-weight: 600;
   font-size: 30px;
-  color: #1b7b97;
+  color: #43a6c2;
   outline: none !important;
 }
 .main-header-forecast > i{
@@ -195,4 +195,45 @@ md-backdrop.md-sidenav-backdrop {
 .item-header{
     font-family: 'Roboto Condensed', sans-serif !important;
     font-size: 20px;
+}
+.disatrict-name{
+    font-weight: 600;
+    font-size: 50px;
+    color: #1b7b97;
+    outline: none !important;
+}
+
+.column-header{
+    font-family: 'Roboto Condensed', sans-serif !important;
+    font-size: 15px;
+}
+
+.weather-header{
+    font-family: 'Roboto Condensed', sans-serif !important;
+    font-size: 20px;
+    color: #7A7A7A;   
+    font-weight: bold;
+}
+.weather-condition{
+    font-family: 'Roboto Condensed', sans-serif !important;
+    font-size: 50px;
+    color : #7A7A7A;
+    margin-top: 35px; 
+}
+.accuracy-header{
+    font-family: 'Roboto Condensed', sans-serif !important;
+    font-size: 20px;
+    color: #1b7b97;
+    margin-left: -75px;
+}
+.disaster-label{
+    font-family: 'Roboto Condensed', sans-serif !important;
+    font-size: 20px;
+    color: #050507;
+    margin-left: -75px;
+}
+.disaster-value{
+    font-family: 'Roboto Condensed', sans-serif !important;
+    font-size: 50px;
+    color:  rgb(180, 0, 0);
 }
