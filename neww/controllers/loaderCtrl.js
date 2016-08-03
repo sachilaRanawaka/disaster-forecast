@@ -1,6 +1,6 @@
-rasm.controller('loaderCtrl',['$scope', '$state', function($scope,$state){
+rasm.controller('loaderCtrl',['$scope', '$state', function($scope,$state){     
 
-	setTimeout(function(){
+	setTimeout(function(){ 
 		$state.go("home.dashboard")
 	},5000)
 

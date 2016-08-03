@@ -237,3 +237,9 @@ md-backdrop.md-sidenav-backdrop {
     font-size: 50px;
     color:  rgb(180, 0, 0);
 }
+.chart-header{
+    font-family: 'Roboto Condensed', sans-serif !important;
+    font-size: 20px;
+    color: #386ba8;   
+    font-weight: bold;
+}

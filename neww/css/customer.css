@@ -547,11 +547,7 @@
 
 .highcharts-title {
     display: none;
-}
-
-#chart1 {
-    margin-top: 25px;
-}
+} 
 
 /*dialog style */
 .ngdialog.ngdialog-theme-default .ngdialog-content {

@@ -1,7 +1,7 @@
 
 <div layout="column" flex>
-    <md-toolbar layout="row" layout-align="end center" style="height: 90px; background-color: #38373a;padding-top: 7px;" ng-show="!showSearch">
-       <md-button  flex="5" hide-gt-sm ng-click="openLeftMenu()" aria-label="Menu">
+    <md-toolbar layout="row" layout-align="end center" style="height: 70px; background-color: #38373a;padding-top: 7px;" ng-show="!showSearch">
+          <md-button  flex="5" hide-gt-sm ng-click="openLeftMenu()" aria-label="Menu">
               <md-icon  md-svg-icon='img/ic_menu_24px.svg'></md-icon>
           </md-button> 
           <div flex style="margin-left: 40px;"> 
@@ -9,7 +9,11 @@
             <i class="fa fa-tint" aria-hidden="true"></i>
               Disaster Forecast
            </span>
-          </div>  
+          </div>   
+
+           <i flex="5" style="cursor:pointer; outline:none" class="fa fa-line-chart custom" ng-click="toggleRightSidebar()"></i>
+           <i flex="5" style="cursor:pointer; outline:none" class="fa fa-floppy-o" aria-hidden="true"></i>
+             
     </md-toolbar>
 
     <md-toolbar class="md-hue-1" ng-show="showSearch" style="background-color:white">
@@ -23,12 +27,16 @@
           <md-button flex="20" aria-label="Search" ng-click="showSearch = !showSearch">
             <md-icon  style="color:black" md-svg-icon='img/ic_search_24px.svg'></md-icon>
           </md-button>
-        </div>
-       
+        </div>       
       </md-toolbar>
 
     <md-content flex class="md-padding page-content">
-
-        <div ui-view></div>
+        <md-sidenav flex md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" class="md-whiteframe-z2 md-sidenav-left" style="position: fixed;left: 0px;background: #f5f5f5;min-width:50px; max-width:50px;top: 70px;">   
+         <md-button style="height: 60px;" ng-repeat="item in menuItems" type='button' aria-label='Open demo menu' 
+         class='md-icon-button' ui-sref="{{item.state}}">
+             <md-icon md-svg-icon='{{item.icon}}'></md-icon>
+          </md-button>
+        </md-sidenav>
+        <div ui-view flex></div>
     </md-content>
 </div>

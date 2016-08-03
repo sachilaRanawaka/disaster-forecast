@@ -3,7 +3,7 @@ rasm.controller("districtCtrl",["$scope","$state","$stateParams",function($scope
 	$scope.area = [];
 	$scope.area.push({
 		 "id": $stateParams.districtID,
-		 "color": "#e60000" 
+		 "color": "#264F7F" 
 	})
 	$scope.query = {
 	    order: 'name',
@@ -54,8 +54,9 @@ rasm.controller("districtCtrl",["$scope","$state","$stateParams",function($scope
 		  }],
 		   "areasSettings": {
 				"autoZoom": false,
-				"selectedColor": "#CC0000",
-		        "selectable": true
+				"selectedColor": "#264F7F",
+		        "selectable": true,
+		        "color" : "#049b4d"
 			},
 		  "smallMap": {}
 		} );
@@ -68,7 +69,7 @@ rasm.controller("districtCtrl",["$scope","$state","$stateParams",function($scope
 		$scope.area = [];
 		$scope.area.push({
 			"id" : event.mapObject.id,
-			"color": "#e60000" 
+			"color": "#264F7F" 
 		});
 		loadMap();
 	}

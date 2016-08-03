@@ -14,16 +14,13 @@ rasm.config(function($stateProvider, $urlRouterProvider) {
         controller: 'homeCtrl',
         templateUrl: 'partials/main.html'
     }).state('home.dashboard', {
-        url: '/dashboard',
-        controller: 'homeCtrl',
+        url: '/dashboard', 
         templateUrl: 'partials/dashboard.html'
     }).state('home.maps', {
-        url: '/maps',
-        controller: 'homeCtrl',
+        url: '/maps', 
         templateUrl: 'partials/maps.html'
     }).state('home.aboutUs', {
-        url: '/aboutUs',
-        controller: 'homeCtrl',
+        url: '/aboutUs', 
         templateUrl: 'partials/aboutUs.html'
     }).state("login", {
         url: "/login",

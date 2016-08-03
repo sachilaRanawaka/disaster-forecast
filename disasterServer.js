@@ -44,7 +44,46 @@ app.post('/filterCondition', function (req, res) {
 
 })
  
+var classArr = ['rainfall_past','tempurature_past','wind_past','humidity_past']; 
+app.post('/getAll', function (req, res) { 
+  var intYear = parseInt(req.body.year) 
+  var i = 0;
+  var allArr = [];
+ 
+      var query = "SELECT * from rainfall_past where Year = '"+req.body.year+"' and Month = '"+req.body.month+"' and district = '"+req.body.district+"'";
+      db.queryFunc(query,function(rows){ 
+          if (rows && rows.length > 0) {
+            rows[0].type = "Rainfall"                      
+            allArr = allArr.concat(rows[0]);
+          }    
+            var query = "SELECT * from tempurature_past where Year = '"+req.body.year+"' and Month = '"+req.body.month+"' and district = '"+req.body.district+"'";
+            db.queryFunc(query,function(rows){  
+                if (rows && rows.length > 0) {
+                  rows[0].type = "Temparature"                      
+                  allArr = allArr.concat(rows[0]);
+                } 
+                var query = "SELECT * from wind_past where Year = '"+req.body.year+"' and Month = '"+req.body.month+"' and district = '"+req.body.district+"'";
+                db.queryFunc(query,function(rows){ 
+                    if (rows && rows.length > 0) {
+                      rows[0].type = "Wind"                      
+                      allArr = allArr.concat(rows[0]);
+                    }
+                    var query = "SELECT * from humidity_past where Year = '"+req.body.year+"' and Month = '"+req.body.month+"' and district = '"+req.body.district+"'";
+                    db.queryFunc(query,function(rows){ 
+                        if (rows && rows.length > 0) {
+                          rows[0].type = "Humidity" 
+                          allArr = allArr.concat(rows[0]);
+                        }  
+                        res.send(JSON.stringify(allArr))   
+                    });          
+                });         
+            });           
+      });  
+})
 
+function getAll(query){ 
+
+}
 app.post('/filterChartsPie', function (req, res) {
   var intYear = parseInt(req.body.year)
   var condition = checkClassYear(req.body.condition,intYear)
