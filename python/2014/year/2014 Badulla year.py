@@ -13,7 +13,7 @@ from db import dbQuery
 
 regr = linear_model.LinearRegression()
 def predicRainfal(month,monthNo):
-	query = "SELECT Value,month,Year FROM rainfall_past where month='"+month+"' and District = 'Badulla ' and Year BETWEEN '2006' AND '2013'"
+	query = "SELECT Value,month,Year FROM rainfall_past where month='"+month+"' and District = 'Badulla' and Year BETWEEN '2006' AND '2013' order by FIELD(MONTH,'January','February','March','April','May','June','July','August','September','October','November','December')"
 	data = dbQuery(query)
 	data = np.array(data) 
 	data = pd.DataFrame(data)  
@@ -47,7 +47,7 @@ y_predict = y_predict.ravel()
 
 x_test = np.array([(14.0, 1.0),(14.0, 2.0),(14.0, 3.0),(14.0, 4.0),(14.0, 5.0),(14.0, 6.0),(14.0, 7.0),(14.0, 8.0),(14.0, 9.0),(14.0, 10.0),(14.0, 11.0),(14.0, 12.0)])
 
-query = "SELECT Value,month FROM rainfall_past where District = 'Galle' and Year = '2014'"
+query = "SELECT Value,month FROM rainfall_past where District = 'Badulla' and Year = '2014' order by FIELD(MONTH,'January','February','March','April','May','June','July','August','September','October','November','December')"
 print(query)
 testDB = dbQuery(query)
 testDB = np.array(testDB) 

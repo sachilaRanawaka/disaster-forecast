@@ -1,0 +1,29 @@
+<md-dialog style="max-width:960px;"  >
+   <md-toolbar class="modal-header">
+      <div class="md-toolbar-tools">
+         <h2>Dashboard Details</h2>
+         <span flex></span>
+         <md-button href class="md-icon-button" ng-click="closeDialog()">
+            <md-icon md-svg-src="img/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+         </md-button>
+      </div>
+   </md-toolbar>
+   <md-dialog-content style="width:560px;">
+    <div  >
+         <div layout-gt-sm="row"> 
+            <div flex ='25'></div> 
+            <md-input-container  flex >
+                  <label>name</label>
+                  <input id="accNo" ng-model="dashboardName">
+            </md-input-container>
+         </div>                        
+      </div>
+
+   </md-dialog-content>
+ 
+   <div class="md-actions" layout="row"  >
+      <md-button href ng-click="saveDashbord()" class="md-primary">save</md-button>
+      <md-button href ng-click="closeDialog()" class="md-primary">Cancel</md-button>
+   </div>  
+
+</md-dialog>

@@ -7,7 +7,8 @@
          <div flex style="margin-left: 40px;" ng-click="redirectToLogin()" > 
             <span class="font-Roboto main-header-forecast"> 
             <i class="fa fa-tint" aria-hidden="true"></i>
-            Disaster Forecast
+            
+            <a ui-sref="main"  class="font-Roboto main-header-forecast">Disaster Forecast</a> 
             </span>
          </div>
          <div flex="40" class="search-option-wrap"  layout>
@@ -80,9 +81,9 @@
 	         </div>       
       		<div flex layout="row" layout-align="start start " style="margin-left: 75px;" > 	       	 
 	       		<span class="accuracy-header">
-	       			mostly rainy
+	       			Mostly {{weatherType}}
 	       			 <span>
-	       				 Accuracy Level - 78%
+	       				 Accuracy Level - {{accuracyLevel}}% 
 	       			</span>
 	       		</span>
 	         </div>	 

@@ -11,7 +11,7 @@ from db import dbQuery
 
 
 
-regr = linear_model.LinearRegression()
+regr = linear_model.BayesianRidge ()
 def predicRainfal(month,monthNo):
 	query = "SELECT Value,month,Year FROM rainfall_past where month='"+month+"' and District = 'Galle' and Year BETWEEN '2006' AND '2013'"
 	data = dbQuery(query)
@@ -65,10 +65,10 @@ testDB = testDB.sort_values(testDB.columns[2])
 y_test= testDB.ix[:,0]
 y_test = np.array(y_test)
 y_test= y_test.astype(np.float64)
-print(y_test)
-print(y_predict)
+print("y_test = " ,y_test)
+print("y_predict \n" , y_predict)
 
-print('r value \n',r2_score(y_test, y_predict))
+print('r value = ',r2_score(y_test, y_predict))
 
  
 print('Coefficients: \n', regr.coef_)

@@ -101,6 +101,96 @@ app.post('/filterChartsPie', function (req, res) {
     }) 
   })
 
+
+app.post("/exportData",function(req,res){  
+  var intYear = parseInt(req.body.year)
+  var condition = checkClassYear(req.body.condition,intYear)
+  var fullrr = {
+      barData :[],
+      xAxis :["January","February","March","April","May","June","July","August","September","October","November","December"]
+  }
+  var query = "SELECT * from "+condition+" where Year = '"+req.body.year+"' and District = '"+req.body.district+"'";     
+  db.queryFunc(query,function(rows){ 
+    var sampleArr = {   
+        data : [],
+        id : req.body.condition
+    }
+    for(var i=0; i<=rows.length-1; i++){  
+      sampleArr.data.push({
+        name : rows[i].Month,
+        y : parseFloat(rows[i].Value)
+      });
+    }
+    fullrr.barData.push(sampleArr);
+    res.send(JSON.stringify(fullrr))   
+  }) 
+})
+
+
+app.post('/getAllDashboards',function(req,res){
+  var query = "SELECT * FROM `dashboard` where user_UserID = '1'";    
+  db.queryFunc(query,function(result){  
+     res.send(JSON.stringify(result)) 
+  })
+})
+var allChartArr = [];
+app.post('/getAllCharts',function(req,res){
+  var arrID = req.body.chartIDs,
+      i = 0,
+      l = arrID.length-1;
+  allChartArr = [];  
+  for(i;i<=l;i++){ 
+    var query = "SELECT * FROM `chart` where code = '"+arrID[i]+"'";    
+
+    (function(i){
+        db.queryFunc(query,function(result){  
+          if (result.length > 0) {            
+            allChartArr.push(result[0].details)           
+            if (i==l) {           
+              res.send(JSON.stringify(allChartArr)) 
+            }
+          }else{            
+              res.send(JSON.stringify(allChartArr)) 
+          }
+        })      
+    })(i)
+     // console.log(i+">"+l)
+     //  if (i==l) {          
+     //    console.log("over")
+     //    res.send(JSON.stringify(allChartArr)) 
+     //  }
+  }
+})
+
+app.post("/saveDashboard",function(req,res){
+  var details = JSON.parse(req.body.details),
+      l = details.length-1,
+      i = 0,
+      numArr = [];
+
+  for(i; i<=l;i++){
+    var randomNum = (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+    numArr.push(randomNum)
+    var query = "INSERT INTO `chart`(`user_UserID`, `details`, `code`) VALUES ('1','"+JSON.stringify(details[i])+"','"+randomNum+"')";
+    var sample = details[i]; 
+
+
+    (function(){ //start wrapper code
+      db.queryFunc(query,function(result){  
+
+      })
+    })(sample);//passing in variable to var here
+    
+  }
+  var nameString = JSON.stringify(numArr);
+  var query = "INSERT INTO `dashboard`(`user_UserID`, `ChartName`, `ChartID`) VALUES ('1','"+req.body.chartName+"','"+nameString+"')";
+  db.queryFunc(query,function(result){ 
+    result.message = "success"
+    res.send(JSON.stringify(result)) 
+  })
+  
+})
+
   app.post('/filterChartsBar', function (req, res) {       
       var scaleNum = parseInt(req.body.scaleNum)
       var fullrr = {
@@ -147,7 +237,7 @@ app.post('/filterChartsPie', function (req, res) {
       }
 
       if (reqBody.XAxsis == "Months") {
-        con = checkClassYear(reqBody.scale1,parseInt(reqBody.XAxsisAddition)) 
+        con = checkClassYear(reqBody.scale1,parseInt(reqBody.XAxsisAddition))  
         query = "SELECT Month,Value from "+con+" where Year = '"+reqBody.XAxsisAddition+"' and District = '"+reqBody.district+"'";
         axisArr = ["January","February","March","April","May","June","July","August","September","October","November","December"]
         db.queryFunc(query,function(rows){ 
@@ -164,12 +254,12 @@ app.post('/filterChartsPie', function (req, res) {
         query = "SELECT Year,Value from "+con+" where Month = '"+reqBody.XAxsisAddition+"' and District = '"+reqBody.district+"'";
         axisArr = ["2006","2007","2008","2009","2010","2011","2012","2013","2014","2015"]
         db.queryFunc(query,function(rows){ 
-          for(var i=0; i<=rows.length-1; i++){  
-            fullrr.data.push({
-              name : rows[i].Year,
-              y : parseFloat(rows[i].Value)
-            });
-          }
+           for(var i=0; i<=rows.length-1; i++){  
+              fullrr.data.push({
+                name : rows[i].Month,
+                y : parseFloat(rows[i].Value)
+              });
+            }
           callback(fullrr,axisArr)   
         }) 
       }
@@ -187,11 +277,21 @@ app.post('/filterChartsPie', function (req, res) {
         con = checkClassYear(reqBody.scale2,parseInt(reqBody.XAxsisAddition))
         query = "SELECT Month,Value from "+con+" where Year = '"+reqBody.XAxsisAddition+"' and District = '"+reqBody.district+"'";
         db.queryFunc(query,function(rows){ 
-          for(var i=0; i<=rows.length-1; i++){  
-            fullrr.data.push({
-              name : rows[i].Month,
-              y : parseFloat(rows[i].Value)
-            });
+          if (reqBody.scale1 == 'wind') {
+            for(var i=0; i<=rows.length-1; i++){  
+              console.log(rows[i].Value)
+              fullrr.data.push({
+                name : rows[i].Month,
+                y : rows[i].Value
+              });
+            }
+          }else{            
+            for(var i=0; i<=rows.length-1; i++){  
+              fullrr.data.push({
+                name : rows[i].Month,
+                y : parseFloat(rows[i].Value)
+              });
+            }
           }
           callback(fullrr)   
         }) 
@@ -199,11 +299,20 @@ app.post('/filterChartsPie', function (req, res) {
         con = checkClassMonth(reqBody.scale2)
         query = "SELECT Year,Value from "+con+" where Month = '"+reqBody.XAxsisAddition+"' and District = '"+reqBody.district+"'";
         db.queryFunc(query,function(rows){ 
-          for(var i=0; i<=rows.length-1; i++){  
-            fullrr.data.push({
-              name : rows[i].Year,
-              y : parseFloat(rows[i].Value)
-            });
+          if (reqBody.scale1 == 'wind') {
+            for(var i=0; i<=rows.length-1; i++){  
+              fullrr.data.push({
+                name : rows[i].Month,
+                y : rows[i].Value
+              });
+            }
+          }else{            
+            for(var i=0; i<=rows.length-1; i++){  
+              fullrr.data.push({
+                name : rows[i].Month,
+                y : parseFloat(rows[i].Value)
+              });
+            }
           }
           callback(fullrr)   
         }) 
@@ -260,6 +369,12 @@ app.post('/filterChartsPie', function (req, res) {
           else
             condition = "tempurature_past";
           break;
+        case "wind" :
+          if(intYear > 2015)
+            condition = "wind_forcast";
+          else
+            condition = "wind_past";
+          break;
         case "Wind" :
           if(intYear > 2015)
             condition = "wind_forcast";
@@ -290,6 +405,9 @@ app.post('/filterChartsPie', function (req, res) {
           break;
         case "Temparature" :
           condition = "tempurature_past";
+          break;
+        case "wind" :
+          condition = "wind_past";
           break;
         case "Wind" :
           condition = "wind_past";

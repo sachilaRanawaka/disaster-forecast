@@ -72,14 +72,14 @@ for i, m in enumerate(testDB.ix[:,1]):
 testDB = testDB.sort_values(testDB.columns[2])
 # testDB = testDB.sort(testDB.ix[i,2], ascending=False)
 
-print(testDB.sort_values(testDB.columns[2]))
+# print(testDB.sort_values(testDB.columns[2]))
 # print(testDB)
 
 y_test= testDB.ix[:,0]
 y_test = np.array(y_test)
 y_test= y_test.astype(np.float64)
-# print(y_test)
-# print(y_predict)
+print(y_test)
+print(y_predict)
 
 print('r value ',r2_score(y_test, y_predict))
 

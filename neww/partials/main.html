@@ -6,14 +6,17 @@
           </md-button> 
           <div flex style="margin-left: 40px;"> 
             <span class="font-Roboto main-header-forecast"> 
-            <i class="fa fa-tint" aria-hidden="true"></i>
-              Disaster Forecast
+            <i class="fa fa-tint" aria-hidden="true" ></i>
+            <a ui-sref="main"  class="font-Roboto main-header-forecast">Disaster Forecast</a> 
+              
            </span>
           </div>   
 
-           <i flex="5" style="cursor:pointer; outline:none" class="fa fa-line-chart custom" ng-click="toggleRightSidebar()"></i>
-           <i flex="5" style="cursor:pointer; outline:none" class="fa fa-floppy-o" aria-hidden="true"></i>
-             
+           <i flex="5" style="cursor:pointer; outline:none" class="fa fa-bars" aria-hidden="true" ng-click="customeChart()"></i>          
+           <i flex="5" style="cursor:pointer; outline:none" class="fa fa-line-chart custom" aria-hidden="true" ng-click="toggleRightSidebar()"></i>
+           <i flex="5" style="cursor:pointer; outline:none" class="fa fa-floppy-o" aria-hidden="true" ng-click="saveChart()"></i>
+           <i flex="5" style="cursor:pointer; outline:none" class="fa fa-database" aria-hidden="true" ng-click="loadChart()"></i> 
+          
     </md-toolbar>
 
     <md-toolbar class="md-hue-1" ng-show="showSearch" style="background-color:white">

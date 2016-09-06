@@ -1,0 +1,57 @@
+<md-dialog style="max-width:960px;"  >
+   <md-toolbar class="modal-header">
+      <div class="md-toolbar-tools">
+         <h2>Custome Chart</h2>
+         <span flex></span>
+         <md-button href class="md-icon-button" ng-click="closeDialog()">
+            <md-icon md-svg-src="img/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+         </md-button>
+      </div>
+   </md-toolbar>
+   <md-dialog-content style="width:560px;"> 
+        <div layout-gt-sm="row"> 
+            <div flex = "10"></div>
+            <md-input-container flex>
+              <label >title</label> 
+              <input ng-model="title" type="text" required>  
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm >
+               <label>Select Chart Type</label>
+               <md-select  ng-model="chartType" flex>
+                  <md-optgroup label="Chart types">
+                  <md-option value="bar"> Bar charts</md-option>
+                  <md-option value="pie"> Pie charts</md-option>
+                  <md-option value="line"> Line charts</md-option>
+               </md-select>
+            </md-input-container> 
+        </div>   
+        <div layout-gt-sm="row">  
+            <div flex = "10"></div>
+            <md-input-container flex>
+              <label >series Name</label> 
+              <input ng-model="seriesName" type="text" >  
+            </md-input-container>
+        </div>
+        <div layout layout-sm="row" >
+          <div flex = "10"></div>
+          <md-input-container flex>
+            <label>X axis</label>
+            <input ng-model="xaxis" type="text" >
+          </md-input-container>                      
+        </div>
+        <div layout layout-sm="row" >
+          <div flex = "10"></div>
+          <md-input-container flex>
+            <label>Y axis</label>
+            <input ng-model="yaxis" type="text" >
+          </md-input-container>                      
+        </div>
+
+   </md-dialog-content>
+ 
+   <div class="md-actions" layout="row"  >
+      <md-button href ng-click="saveCustomeChart()" class="md-primary">load</md-button>
+      <md-button href ng-click="closeDialog()" class="md-primary">Cancel</md-button>
+   </div>  
+
+</md-dialog>

@@ -243,3 +243,15 @@ md-backdrop.md-sidenav-backdrop {
     color: #386ba8;   
     font-weight: bold;
 }
+.input-name{
+    font-weight: 600;
+    font-size: 17px;
+    color: #1b7b97;
+    outline: none !important;
+}
+.chart-name{
+    font-weight: 600;
+    font-size: 35px;
+    color: #6c7378;
+    outline: none !important;
+}

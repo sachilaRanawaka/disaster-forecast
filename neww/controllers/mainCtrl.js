@@ -193,7 +193,15 @@ rasm.controller('mainCtrl',['$scope', '$state','$http','$mdSidenav', function($s
 					case "Anuradhapura": 
 						mapColorFunc("LK-71",obj[i])
 						break;
+					case "Anuradhapura ": 
+						mapColorFunc("LK-71",obj[i])
+						break;
 					case "Colombo": //kalutara, gampaha
+						mapColorFunc("LK-11",obj[i]) 
+						mapColorFunc("LK-13",obj[i])
+						mapColorFunc("LK-12",obj[i])
+						break; 
+					case "Colombo ": //kalutara, gampaha
 						mapColorFunc("LK-11",obj[i]) 
 						mapColorFunc("LK-13",obj[i])
 						mapColorFunc("LK-12",obj[i])
@@ -201,14 +209,30 @@ rasm.controller('mainCtrl',['$scope', '$state','$http','$mdSidenav', function($s
 					case "Katugastota": // matale
 						mapColorFunc("LK-21",obj[i])
 						mapColorFunc("LK-22",obj[i])
+						break;  
+					case "Katugastota ": // matale
+						mapColorFunc("LK-21",obj[i])
+						mapColorFunc("LK-22",obj[i])
+						break;  
+					case "Katugastota": // matale
+						mapColorFunc("LK-21",obj[i])
+						mapColorFunc("LK-22",obj[i])
+						break;  
+					case "Katugastota ": // matale
+						mapColorFunc("LK-21",obj[i])
+						mapColorFunc("LK-22",obj[i])
 						break; 
-					case "NuwaraEliya": 
-						mapColorFunc("LK-23",obj[i])
-						break;
 					case "Galle": 
 						mapColorFunc("LK-31",obj[i])
 						break;
+					case "Galle ": 
+						mapColorFunc("LK-31",obj[i])
+						break;
 					case "Hambantota": //matara
+						mapColorFunc("LK-32",obj[i])
+						mapColorFunc("LK-33",obj[i])
+						break;
+					case "Hambantota ": //matara
 						mapColorFunc("LK-32",obj[i])
 						mapColorFunc("LK-33",obj[i])
 						break;
@@ -216,38 +240,81 @@ rasm.controller('mainCtrl',['$scope', '$state','$http','$mdSidenav', function($s
 						mapColorFunc("LK-41",obj[i])
 						mapColorFunc("LK-42",obj[i])
 						break; 
+					case "Jaffna ": // Kilinochchi
+						mapColorFunc("LK-41",obj[i])
+						mapColorFunc("LK-42",obj[i])
+						break; 
 					case "Mannar": 
+						mapColorFunc("LK-43",obj[i])
+						break;
+					case "Mannar ": 
 						mapColorFunc("LK-43",obj[i])
 						break;
 					case "Vavuniya": // Mullaitivu
 						mapColorFunc("LK-44",obj[i])
 						mapColorFunc("LK-45",obj[i])
 						break; 
+					case "Vavuniya ": // Mullaitivu
+						mapColorFunc("LK-44",obj[i])
+						mapColorFunc("LK-45",obj[i])
+						break; 
 					case "Batticaloa": 
+						mapColorFunc("LK-51",obj[i])
+						break;
+					case "Batticaloa ": 
 						mapColorFunc("LK-51",obj[i])
 						break;
 					case "Monaragala": //ampara
 						mapColorFunc("LK-52",obj[i]) 
 						mapColorFunc("LK-82",obj[i])
 						break;
+					case "Monaragala ": //ampara
+						mapColorFunc("LK-52",obj[i]) 
+						mapColorFunc("LK-82",obj[i])
+						break;
 					case "Trincomalee": 
+						mapColorFunc("LK-53",obj[i])
+						break;
+					case "Trincomalee ": 
 						mapColorFunc("LK-53",obj[i])
 						break;
 					case "Kurunegala": 
 						mapColorFunc("LK-61",obj[i])
 						break;
+					case "Kurunegala ": 
+						mapColorFunc("LK-61",obj[i])
+						break;
 					case "Puttalama": 
+						mapColorFunc("LK-62",obj[i])
+						break;
+					case "Puttalama ": 
 						mapColorFunc("LK-62",obj[i])
 						break;
 					case "Polonnaruwa": 
 						mapColorFunc("LK-72",obj[i])
 						break;
+					case "Polonnaruwa ": 
+						mapColorFunc("LK-72",obj[i])
+						break;
 					case "Badulla": 
+						mapColorFunc("LK-81",obj[i])
+						break; 
+					case "Badulla ": 
 						mapColorFunc("LK-81",obj[i])
 						break; 
 					case "Ratnapura":  // kagalle 
 						mapColorFunc("LK-91",obj[i])
 						mapColorFunc("LK-92",obj[i])
+						break; 
+					case "Ratnapura ":  // kagalle 
+						mapColorFunc("LK-91",obj[i])
+						mapColorFunc("LK-92",obj[i])
+						break; 
+					case "NuwaraEliya":  // kagalle 
+						mapColorFunc("LK-23",obj[i]) 
+						break; 
+					case "NuwaraEliya ":  // kagalle 
+						mapColorFunc("LK-23",obj[i]) 
 						break; 
 				}
 			}
@@ -279,7 +346,7 @@ rasm.controller('mainCtrl',['$scope', '$state','$http','$mdSidenav', function($s
 		var colorCode = ""
 		var intValue = parseFloat(obj.Value)
 		if (obj.type == "Rainfall") {
-			if (intValue > 0.0 && intValue <= 50.0){
+			if (intValue <= 50.0){
 				areaObj.push({"id": mapID, "color": "#B2EBF2"}) 
 			}
 			else if (intValue > 50.0 && intValue <= 100.0) {

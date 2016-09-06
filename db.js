@@ -13,7 +13,7 @@ exports.queryFunc = function(querys,callback){
       callback(rows);	  
    }
    else
-     console.log('Error while performing Query.');
+     console.log('Error while performing Query ' + err);
     
    connection = mysql.createConnection({
       host     : '127.0.0.1',

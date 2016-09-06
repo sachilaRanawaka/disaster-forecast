@@ -1,12 +1,132 @@
+ <style type="text/css">
+ 	.amcharts-chart-div a {display:none !important;} 
+
+ 	md-select.md-default-theme .md-select-value, md-select .md-select-value {
+	    border-bottom-color: rgb(27, 123, 151);
+	}
+	md-select.md-default-theme .md-select-value.md-select-placeholder, md-select .md-select-value.md-select-placeholder {
+	    color: rgb(27, 123, 151);
+	}
+	md-select-menu.md-default-theme md-optgroup md-option, md-select-menu md-optgroup md-option {
+	    color: rgb(130, 130, 130);
+	}
+	md-select.md-default-theme:not([disabled]):focus .md-select-value, md-select:not([disabled]):focus .md-select-value {
+	    border-bottom-color:  rgb(27, 123, 151);
+	    color:  rgb(27, 123, 151);
+	}
+	md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused .md-input, md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+		 border-bottom-color: rgb(27, 123, 151);
+	} 
+	md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label, md-input-container:not(.md-input-invalid).md-input-focused label {
+		color: rgb(130, 130, 130);
+	}
+	a.md-button.md-default-theme.md-primary.md-raised, a.md-button.md-primary.md-raised, a.md-button.md-default-theme.md-primary.md-fab, a.md-button.md-primary.md-fab, .md-button.md-default-theme.md-primary.md-raised, .md-button.md-primary.md-raised, .md-button.md-default-theme.md-primary.md-fab, .md-button.md-primary.md-fab {
+	    color: rgba(255,255,255,0.87);
+	    background-color: rgb(53, 138, 163);
+	}
+	md-dialog md-dialog-content:not([layout=row]) > *:first-child:not(.md-subheader) {
+	    margin-top: 0;
+	    font-family: 'Roboto Condensed', sans-serif;
+	    font-size: 25px;
+	}
+	md-dialog md-dialog-content .md-dialog-content-body {
+	    width: 100%;
+	    font-family: 'Roboto Condensed', sans-serif;
+	    font-size: 17px;
+	}
+	a.md-button.md-default-theme.md-primary, a.md-button.md-primary, .md-button.md-default-theme.md-primary, .md-button.md-primary { 
+	    font-family: 'Roboto Condensed', sans-serif;
+	    font-size: 17px;
+	}
+ </style>
+ 	
+  	<md-whiteframe class="md-whiteframe-7dp" flex layout layout-align="center center" style="margin-left:55px; display:inline-block;width: 96%;" >
+	  <div layout="row" layout-align="center center" flex ng-init="loadMap()" style="background-color: white;">
+   		<div flex ="10"></div> 
+		<div flex="50" id="mapdiv" style="width: 600px; height: 540px;"></div> 
+		<div flex layout="row" layout-align="start start" >
+        	<div layout="column" flex="90">
+        		<div  flex layout="row" layout-align="start start" style="margin-bottom: 25px;" >
+		            <span class="font-Roboto chart-name">  
+		            	Export Data To Chart
+		            </span> 				 
+		        </div> 
+    			<div flex layout="row" layout-align="end end" >
+		            <md-input-container flex>
+		               <label class="font-Roboto input-name">Year</label>
+		               <md-select class="font-Roboto input-name" ng-model="searchYear" ng-change="">
+		                  <md-optgroup class="font-Roboto input-name" label="Year">
+		                     <md-option value="2016">2016 </md-option>
+		                     <md-option value="2015">2015 </md-option>
+		                     <md-option value="2014">2014 </md-option>
+		                     <md-option value="2013">2013 </md-option>
+		                     <md-option value="2012">2012 </md-option>
+		                     <md-option value="2011">2011 </md-option>
+		                     <md-option value="2010">2010 </md-option>
+		                     <md-option value="2009">2009 </md-option>
+		                     <md-option value="2008">2008 </md-option>
+		                     <md-option value="2007">2007 </md-option>
+		                     <md-option value="2006">2006 </md-option>
+		                  </md-optgroup>
+		               </md-select>
+		            </md-input-container>		 
+		        </div> 
+    			<div flex layout="row" layout-align="end end" >
+		            <md-input-container flex>
+		               <label class="font-Roboto input-name">Month</label>
+		               <md-select class="font-Roboto input-name" ng-model="searchMonth" ng-change="">
+		                  <md-optgroup class="font-Roboto input-name" label="Month">
+		                     <md-option value="January">January </md-option>
+		                     <md-option value="February">February </md-option>
+		                     <md-option value="March">March </md-option>
+		                     <md-option value="April">April </md-option>
+		                     <md-option value="May">May </md-option>
+		                     <md-option value="June">June </md-option>
+		                     <md-option value="July">July </md-option>
+		                     <md-option value="August">August </md-option>
+		                     <md-option value="September">September </md-option>
+		                     <md-option value="October">October </md-option>
+		                     <md-option value="November">November </md-option>
+		                     <md-option value="December">December </md-option>
+		                  </md-optgroup>
+		               </md-select>
+		            </md-input-container>	
+    			</div>
+    			<div flex layout="row" layout-align="end end">
+    				 <md-input-container class="md-block" flex-gt-sm >
+		               <label class="font-Roboto input-name">Select Chart Type</label>
+		               	<md-select class="font-Roboto input-name" ng-model="chartType" flex >
+		                  <md-optgroup class="font-Roboto input-name" label="Chart types">
+		                  <md-option value="bar"> Bar charts</md-option>
+		                  <md-option value="pie"> Pie charts</md-option>
+		                  <md-option value="line"> Line charts</md-option>
+		              	</md-select>
+		            </md-input-container> 
+    			</div>
+    			<div flex layout="row" layout-align="end end">
+    				 <md-input-container class="md-block" flex-gt-sm >
+		               <label class="font-Roboto input-name">Select Type</label>
+		               	<md-select class="font-Roboto input-name" ng-model="type" flex >
+		                  <md-optgroup class="font-Roboto input-name" label="types">
+		                  <md-option value="Rainfall">Rainfall</md-option>
+		                  <md-option value="Temparature">Temparature</md-option>
+		                  <md-option value="Wind">Wind</md-option>
+		                  <md-option value="Humidity">Humidity</md-option>
+		              	</md-select>
+		            </md-input-container> 
+    			</div>
+    			<div flex layout="row" layout-align="end end">
+					<md-input-container flex>
+	                   <label class="font-Roboto input-name">Chart Name</label>
+	                   <input type="text" class="font-Roboto input-name" ng-model="title" style="color: #1b7b97;" /> 
+	                </md-input-container>
+    			</div>
+    			<div flex layout="row" layout-align="end end">
+				  <md-button class="md-raised md-primary" ng-click="exportData(searchYear,searchMonth,chartType,type,title)">Export</md-button>
+    			</div>
+        	</div>
+        </div>
+	 </div>
+	</md-whiteframe>
  
-
-	<md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column" style="margin-left: 30px">
-	<div id="map"> 
-		maps
-	</div>
-
-	<div id="mapdiv" style="width: 600px; height: 400px;"></div>
-	
-	 <!--script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdI4iUYUqLLtBY-YXXvHlFXYvQiYU7Sz8&callback=initMap"
-    async defer></script -->
-	</md-content>
+ 	<div style="background-color: white; z-index: 5; position: absolute; width: 135px; height: 120px; left: 48%;  top: 5%;">
