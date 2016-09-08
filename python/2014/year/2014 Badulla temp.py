@@ -34,6 +34,7 @@ def getTemp(month,monthNo):
 	Y = Y.astype(np.float64)
 
 	X = np.array([(10.0, monthNo),(11.0, monthNo), (12.0, monthNo), (13.0, monthNo)])
+	print(X)
 	regr.fit(X, Y)
 
 	return regr.predict([(14,monthNo)])

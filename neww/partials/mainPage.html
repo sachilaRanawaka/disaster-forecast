@@ -28,6 +28,7 @@
 			        <label style="color:#727173">Year</label>
 			        <md-select ng-model="searchYear"  ng-change="filterCondition()">
 			          <md-optgroup label="Year">
+			            <md-option value="2017">2017 </md-option>
 			            <md-option value="2016">2016 </md-option>
 			            <md-option value="2015">2015 </md-option>
 			            <md-option value="2014">2014 </md-option>
@@ -136,6 +137,12 @@
 	     		<div  ng-style="{'background-color':colorObj.item5.backgroundColor}"  style="width: 36px;height: 20px;position: relative;top: 20px;left: 15px;    margin-bottom: 20px;" >
 	     			<div style="width: 100px;margin-left: 50px;height: 20px;">	     				
 	     				<span style="color:black;font-size: 16px;" class="font-Roboto"> {{colorObj.item5.label}}</span>
+	     			</div> 
+	     		</div>	
+	     		   
+	     		<div  ng-style="{'background-color':colorObj.item6.backgroundColor}" ng-if="selectedConditionID == 'Flood' || selectedConditionID == 'Cyclone' || selectedConditionID == 'Draught' || selectedConditionID == 'Landslides'" style="width: 36px;height: 20px;position: relative;top: 20px;left: 15px;    margin-bottom: 20px;" >
+	     			<div style="width: 100px;margin-left: 50px;height: 20px;">	     				
+	     				<span style="color:black;font-size: 16px;" class="font-Roboto"> {{colorObj.item6.label}}</span>
 	     			</div> 
 	     		</div>	
 	     	</div>

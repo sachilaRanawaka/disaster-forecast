@@ -30,9 +30,9 @@ app.use(function (req, res, next) {
 });  
 app.post('/filterCondition', function (req, res) { 
   var intYear = parseInt(req.body.year)
-  var condition = checkClassYear(req.body.condition,intYear)
-
+  var condition = checkClassYear(req.body.condition,intYear) 
   var query = "SELECT * from "+condition+" where Year = '"+req.body.year+"' and Month = '"+req.body.month+"'";  
+  console.log(query)
   var fullrr = []; 
   db.queryFunc(query,function(rows){ 
     for(var i=0; i<=rows.length-1; i++){ 
@@ -73,16 +73,50 @@ app.post('/getAll', function (req, res) {
                         if (rows && rows.length > 0) {
                           rows[0].type = "Humidity" 
                           allArr = allArr.concat(rows[0]);
-                        }  
-                        res.send(JSON.stringify(allArr))   
+                        } 
+                        getDisaster(req, res, function(arr){
+                          allArr = allArr.concat(arr);
+                          res.send(JSON.stringify(allArr))   
+                        }) 
                     });          
                 });         
             });           
       });  
 })
 
-function getAll(query){ 
-
+function getDisaster(req, res,callback){ 
+  var intYear = parseInt(req.body.year) 
+  var i = 0;
+  var allArr = []; 
+    var query = "SELECT * from flood_forcast where Year = '"+req.body.year+"' and Month = '"+req.body.month+"' and district = '"+req.body.district+"'";
+    db.queryFunc(query,function(rows){ 
+        if (rows && rows.length > 0) {
+          rows[0].type = "Flood"                      
+          allArr = allArr.concat(rows[0]);
+        }    
+          var query = "SELECT * from drought_forcast where Year = '"+req.body.year+"' and Month = '"+req.body.month+"' and district = '"+req.body.district+"'";
+          db.queryFunc(query,function(rows){  
+              if (rows && rows.length > 0) {
+                rows[0].type = "Drought"                      
+                allArr = allArr.concat(rows[0]);
+              } 
+              var query = "SELECT * from cyclone_forcast where Year = '"+req.body.year+"' and Month = '"+req.body.month+"' and district = '"+req.body.district+"'";
+              db.queryFunc(query,function(rows){ 
+                  if (rows && rows.length > 0) {
+                    rows[0].type = "Cyclone"                      
+                    allArr = allArr.concat(rows[0]);
+                  }
+                  var query = "SELECT * from landslide_forcast where Year = '"+req.body.year+"' and Month = '"+req.body.month+"' and district = '"+req.body.district+"'";
+                  db.queryFunc(query,function(rows){ 
+                      if (rows && rows.length > 0) {
+                        rows[0].type = "Landslides" 
+                        allArr = allArr.concat(rows[0]);
+                      }  
+                      callback(allArr) 
+                  });          
+              });         
+          });           
+    }); 
 }
 app.post('/filterChartsPie', function (req, res) {
   var intYear = parseInt(req.body.year)
@@ -278,8 +312,7 @@ app.post("/saveDashboard",function(req,res){
         query = "SELECT Month,Value from "+con+" where Year = '"+reqBody.XAxsisAddition+"' and District = '"+reqBody.district+"'";
         db.queryFunc(query,function(rows){ 
           if (reqBody.scale1 == 'wind') {
-            for(var i=0; i<=rows.length-1; i++){  
-              console.log(rows[i].Value)
+            for(var i=0; i<=rows.length-1; i++){   
               fullrr.data.push({
                 name : rows[i].Month,
                 y : rows[i].Value
@@ -387,6 +420,30 @@ app.post("/saveDashboard",function(req,res){
           else
             condition = "humidity_past";
           break;
+        case "Flood" :
+          if(intYear > 2015)
+            condition = "flood_forcast";
+          else
+            condition = "flood_forcast";
+          break;
+        case "Draught" :
+          if(intYear > 2015)
+            condition = "drought_forcast";
+          else
+            condition = "drought_forcast";
+          break;
+        case "Cyclone" :
+          if(intYear > 2015)
+            condition = "cyclone_forcast";
+          else
+            condition = "cyclone_forcast";
+          break;
+        case "Landslides" :
+          if(intYear > 2015)
+            condition = "landslide_forcast";
+          else
+            condition = "landslide_forcast";
+          break;
 
         default :
           console.log("no such condition")
@@ -414,6 +471,21 @@ app.post("/saveDashboard",function(req,res){
           break;
         case "Humidity" :
           condition = "humidity_past";
+          break;
+        case "Flood" :
+          condition = "flood_forcast";
+          break;
+        case "Draught" :
+          condition = "drought_forcast";
+          break;
+        case "Cyclone" :
+          condition = "cyclone_forcast";
+          break;
+        case "cyclone" :
+          condition = "cyclone_forcast";
+          break;
+        case "Landslides" :
+          condition = "landslide_forcast";
           break;
 
         default :

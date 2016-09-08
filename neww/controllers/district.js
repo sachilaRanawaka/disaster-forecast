@@ -173,6 +173,10 @@ rasm.controller("districtCtrl",["$scope","$state","$stateParams",function($scope
 		$scope.districtID = event.mapObject.id
 		loadMap();
 	}
+
+	$scope.disasterArr= [];
+	$scope.weatherArr= [];
+
 	function getAll(year,month,district){
 		var xmlhttp = new XMLHttpRequest();
 		var url = "http://localhost:3000/getAll";
@@ -185,14 +189,30 @@ rasm.controller("districtCtrl",["$scope","$state","$stateParams",function($scope
 		    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) { 
 		    	$scope.allData = []
 		    	$scope.weatherPieArr = [];
+		    	$scope.disasterPieArr = [];
 		        $scope.allData = JSON.parse(xmlhttp.responseText) 
 		        console.log(xmlhttp.responseText)
-		        if ($scope.allData && $scope.allData.length > 0) {			         
-			        $scope.allData.forEach(x => $scope.weatherPieArr.push([x.type, parseFloat(x.Value)]))	
-		        	calculateConditions();	        	
+		        if ($scope.allData && $scope.allData.length > 0) {
+		       		$scope.disasterArr= [];
+					$scope.weatherArr= [];		
+			        var i=0,l=$scope.allData.length; 
+			        for(i; i<=l; i++){
+			        	if ($scope.allData[i] && $scope.allData[i].type) {
+				        	if ($scope.allData[i].type == "Rainfall" || $scope.allData[i].type == "Humidity" || $scope.allData[i].type == "Temparature" || $scope.allData[i].type == "Wind"  ) {
+								$scope.weatherArr.push($scope.allData[i])
+							}else{
+								$scope.disasterArr.push($scope.allData[i])
+							}		        		
+			        	}
+			        }
+
+			        console.log($scope.allData)
+			        loadWeatherChart()         
+				    $scope.weatherArr.forEach(x => $scope.weatherPieArr.push([x.type, parseFloat(x.Value)]))
+				    $scope.disasterArr.forEach(x => $scope.disasterPieArr.push([x.type, parseFloat(x.Value)]))
+			        calculateConditions();	
+			        calculateDisasters();        	
 		        } 
-		        console.log($scope.allData)
-		        loadWeatherChart()
 		    }
 		    if(!$scope.$$phase) {
 			 	$scope.$apply()
@@ -207,6 +227,74 @@ rasm.controller("districtCtrl",["$scope","$state","$stateParams",function($scope
 	}
 	$scope.disasterPieChrt = {
 		"highchartsNG" : {}
+	}
+	function calculateDisasters(){		
+		var floodValue,droughtValue,cycloneValue,landslideVal;
+		for(i=0; i<= $scope.allData.length -1; i++){
+			if ($scope.allData[i].type == "Flood") {
+				if ($scope.allData[i].Value == "")
+					floodValue = 0;
+				else
+					floodValue = parseFloat($scope.allData[i].Value)
+			}
+			else if ($scope.allData[i].type == "Drought") {
+				if ($scope.allData[i].Value == "")
+					droughtValue = 0;
+				else
+					droughtValue = parseFloat($scope.allData[i].Value)
+			}
+			else if ($scope.allData[i].type == "Cyclone") {
+				if ($scope.allData[i].Value == "")
+					cycloneValue = 0;
+				else
+					cycloneValue = parseFloat($scope.allData[i].Value) 
+			}
+			else if ($scope.allData[i].type == "Landslide") {
+				if ($scope.allData[i].Value == "")
+					landslideVal = 0;
+				else
+					landslideVal = parseFloat($scope.allData[i].Value) 
+			}
+		}
+		if (floodValue > 300) { 
+		    $scope.disasterType =  "Flood"
+		    $scope.disasterAccuracyLevel = 68;
+		}else if(droughtValue > 33){	
+		    $scope.disasterType =  "Drought"
+		    $scope.disasterAccuracyLevel = 65;
+		}else if(cycloneValue > 100){	
+		    $scope.disasterType =  "Cyclone"
+		    $scope.disasterAccuracyLevel = 55;
+		}else if(landslideVal > 67){	
+		    $scope.disasterType =  "Landslide"
+		    $scope.disasterAccuracyLevel = 63;
+		}else if(floodValue > 200){	
+		    $scope.disasterType =  "Flood"
+		    $scope.disasterAccuracyLevel = 63;
+		}else if(droughtValue > 30){	
+		    $scope.disasterType =  "Drought"
+		    $scope.disasterAccuracyLevel = 63;
+		}else if(cycloneValue > 75){	
+		    $scope.disasterType =  "Cyclone"
+		    $scope.disasterAccuracyLevel = 63;
+		}else if(landslideVal > 60){	
+		    $scope.disasterType =  "Landslide"
+		    $scope.disasterAccuracyLevel = 63;
+		}else if(floodValue < 200 && floodValue > 0){	
+		    $scope.disasterType =  "Flood"
+		    $scope.disasterAccuracyLevel = 63;
+		}else if(droughtValue < 30){	
+		    $scope.disasterType =  "Drought"
+		    $scope.disasterAccuracyLevel = 63;
+		}else if(cycloneValue <= 75){	
+		    $scope.disasterType =  "Cyclone"
+		    $scope.disasterAccuracyLevel = 63;
+		}else if(landslideVal < 60){	
+		    $scope.disasterType =  "Landslide"
+		    $scope.disasterAccuracyLevel = 63;
+		}else{
+			$scope.disasterType =  "No Disasters"
+		}
 	}
 	function calculateConditions(){
 		var rainfallValue,tempValue,windValue,humidityVal;
@@ -419,6 +507,42 @@ rasm.controller("districtCtrl",["$scope","$state","$stateParams",function($scope
 	            name: 'Weather Summary',
 	            innerSize: '50%',
 	            data:  $scope.weatherPieArr 
+	        }], 
+            loading: false
+        } 
+		 $scope.disasterPieChrt.highchartsNG = {
+        	options: {
+                chart: { 
+                    plotBackgroundColor: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false
+
+                },
+                title: {
+                    text: "Disaster Summary"
+                },
+                plotOptions: {
+                    pie: {
+		                dataLabels: {
+		                    enabled: true,
+		                    distance: -50,
+		                    style: {
+		                        fontWeight: 'bold',
+		                        color: 'white',
+		                        textShadow: '0px 1px 2px black'
+		                    }
+		                },
+		                startAngle: -90,
+		                endAngle: 90,
+		                center: ['50%', '75%']
+		            }
+                }
+            },
+            series: [{
+	            type: 'pie',
+	            name: 'Weather Summary',
+	            innerSize: '50%',
+	            data:  $scope.disasterPieArr 
 	        }], 
             loading: false
         } 

@@ -10,9 +10,9 @@
   }
 </style> 
 
-<div flex style="margin-left: 40px; width:98%" >
+<div flex style="margin-left: 40px; width:98%" id="canvas">
 
-  <md-whiteframe class="md-whiteframe-7dp" flex layout layout-align="center center" ng-repeat="item in dashboardChrts"
+  <md-whiteframe  class="md-whiteframe-7dp" flex layout layout-align="center center" ng-repeat="item in dashboardChrts"
   style="margin-left:30px; display:inline-block" ng-class="{'chart-bottom' : $index >= 2, 'chart-normal': $index < 2}">
     <div layout="column" flex>
         <div layout="row" layout-align="start center" flex style="background-color: white;">   
@@ -21,8 +21,8 @@
                 {{item.chartTitle}}
               </span>
           </div>            
-          <md-button  ng-click="removeChart($index)"  flex>
-              <md-icon  md-svg-icon='img/ic_cancel_24px.svg' style="padding-left: 50px;"></md-icon>
+          <md-button  ng-click="removeChart($index)"  flex style="z-index:0">
+              <md-icon  md-svg-icon='img/ic_cancel_24px.svg' style="padding-left: 72px;"></md-icon>
           </md-button>
         </div>  
         <div flex >

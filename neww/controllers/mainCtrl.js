@@ -2,8 +2,8 @@ rasm.controller('mainCtrl',['$scope', '$state','$http','$mdSidenav', function($s
 	
 	$scope.isSidenavOpen = false;
 	$scope.showSrilankaMap = true;
-	$scope.searchYear = "2015";
-	$scope.searchMonth = "January";
+	$scope.searchYear = "2016";
+	$scope.searchMonth = "November";
 	$scope.selectedConditionID = "Rainfall"
 
 	$scope.redirectToLogin = function(){
@@ -88,6 +88,37 @@ rasm.controller('mainCtrl',['$scope', '$state','$http','$mdSidenav', function($s
 					backgroundColor:"#3F51B5",
 					label:"200  > mm"
 				},
+				item6:{
+					backgroundColor:"#FFC107",
+					label:"no rainfall Values"
+				},
+			}
+		}else if (name == "Flood") {
+			$scope.colorObj = {
+				item1:{
+					backgroundColor:"#B2EBF2",
+					label:"0.00 - 50.0"
+				},
+				item2:{
+					backgroundColor:"#00BCD4",
+					label:"50.0 - 100"
+				},
+				item3:{
+					backgroundColor:"#448AFF",
+					label:"100  - 150"
+				},
+				item4:{
+					backgroundColor:"#0288D1",
+					label:"150  - 200"
+				},
+				item5:{
+					backgroundColor:"#3F51B5",
+					label:"200  > "
+				},
+				item6:{
+					backgroundColor:"#FFC107",
+					label:"No Flood"
+				},
 			}
 		}else if (name == "Temparature") {
 			$scope.colorObj = {
@@ -110,6 +141,37 @@ rasm.controller('mainCtrl',['$scope', '$state','$http','$mdSidenav', function($s
 				item5:{
 					backgroundColor:"#D32F2F",
 					label:"34.0 > C"
+				},
+				item6:{
+					backgroundColor:"#FFC107",
+					label:"no temparature Values"
+				},
+			}
+		}else if (name == "Draught") {
+			$scope.colorObj = {
+				item1:{
+					backgroundColor:"#FF9800",
+					label:"18.0 - 22.0 "
+				},
+				item2:{
+					backgroundColor:"#F57C00",
+					label:"22.0 - 26.0 "
+				},
+				item3:{
+					backgroundColor:"#FF5722",
+					label:"26.0 - 30.0 "
+				},
+				item4:{
+					backgroundColor:"#F44336",
+					label:"30.0 - 34.0 "
+				},
+				item5:{
+					backgroundColor:"#D32F2F",
+					label:"34.0 > "
+				},
+				item6:{
+					backgroundColor:"#FFC107",
+					label:"No Draught"
 				},
 			}
 		}else if (name == "Wind") {
@@ -134,33 +196,95 @@ rasm.controller('mainCtrl',['$scope', '$state','$http','$mdSidenav', function($s
 					backgroundColor:"#388E3C",
 					label:"16 > Km/h"
 				},
+				item6:{
+					backgroundColor:"#FFC107",
+					label:"no wind values"
+				},
+			}
+		}else if (name == "Landslides") {
+			$scope.colorObj = {
+				item1:{
+					backgroundColor:"#FFA000",
+					label:"60.0 - 65.0 "
+				},
+				item2:{
+					backgroundColor:"#F57C00",
+					label:"65.0 - 70.0"
+				},
+				item3:{
+					backgroundColor:"#FF5722",
+					label:"70.0 - 75.0"
+				},
+				item4:{
+					backgroundColor:"#F44336",
+					label:"75.0 - 85.0"
+				},
+				item5:{
+					backgroundColor:"#D32F2F",
+					label:"85.0 >"
+				},
+				item6:{
+					backgroundColor:"#FFC107",
+					label:"No Landslides"
+				},
 			}
 		}else if (name == "Humidity") {
 			$scope.colorObj = {
 				item1:{
-					backgroundColor:"#FFEB3B",
+					backgroundColor:"#FFA000",
 					label:"60.0 - 65.0 "
 				},
 				item2:{
-					backgroundColor:"#FBC02D",
+					backgroundColor:"#F57C00",
+					label:"65.0 - 70.0 "
+				},
+				item3:{
+					backgroundColor:"#FF5722",
+					label:"70.0 - 75.0 "
+				},
+				item4:{
+					backgroundColor:"#F44336",
+					label:"75.0 - 85.0 "
+				},
+				item5:{
+					backgroundColor:"#D32F2F",
+					label:"85.0 > "
+				},
+				item6:{
+					backgroundColor:"#FFC107",
+					label:"No Humidity values"
+				},
+			}
+		}else if (name == "Cyclone") {
+			$scope.colorObj = {
+				item1:{
+					backgroundColor:"#CDDC39",
+					label:"60.0 - 65.0 "
+				},
+				item2:{
+					backgroundColor:"#689F38",
 					label:"65.0 - 70.0"
 				},
 				item3:{
-					backgroundColor:"#FFC107",
+					backgroundColor:"#689F38",
 					label:"70.0 - 75.0"
 				},
 				item4:{
-					backgroundColor:"#FFA000",
+					backgroundColor:"#4CAF50",
 					label:"75.0 - 85.0"
 				},
 				item5:{
-					backgroundColor:"#F57C00",
+					backgroundColor:"#388E3C",
 					label:"85.0 >"
+				},
+				item6:{
+					backgroundColor:"#FFC107",
+					label:"No Cyclone"
 				},
 			}
 		}
 	};   
-
+ 
 	$scope.moveToDashboard = function(){
 		$state.go('login')
 	}
@@ -176,6 +300,7 @@ rasm.controller('mainCtrl',['$scope', '$state','$http','$mdSidenav', function($s
 			xmlhttp.onreadystatechange = function() {
 			    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) { 
 			        mapDistrict(JSON.parse(xmlhttp.responseText))
+			        console.log(JSON.parse(xmlhttp.responseText))
 			    }
 			};
 			xmlhttp.open("POST", url); 
@@ -318,7 +443,27 @@ rasm.controller('mainCtrl',['$scope', '$state','$http','$mdSidenav', function($s
 						break; 
 				}
 			}
+		}else{
+				AmCharts.makeChart( "mapdiv", {
+				  "type": "map",
+				  "dataProvider": {
+				    "map": "sriLankaLow",
+				    "getAreasFromMap": true
+				  },
+				  "listeners": [{
+				      "event": "clickMapObject",
+				      "method": districtClick
+				  }],
+				   "areasSettings": {
+						"autoZoom": false,
+						"selectedColor": "#CC0000",
+				        "selectable": true,
+		        		"color" :"#FFC107"
+					},
+				  "smallMap": {}
+				} );
 		}
+
 	}
 	$scope.colorObj = {
 		item1:{
@@ -340,6 +485,10 @@ rasm.controller('mainCtrl',['$scope', '$state','$http','$mdSidenav', function($s
 		item5:{
 			backgroundColor:"#3F51B5",
 			label:"200  > mm"
+		},
+		item6:{
+			backgroundColor:"#FFC107",
+			label:"no rainfall values"
 		},
 	}
 	function mapColorFunc(mapID,obj){
@@ -366,17 +515,18 @@ rasm.controller('mainCtrl',['$scope', '$state','$http','$mdSidenav', function($s
 			}
 		}else if(obj.type == "Humidity"){
 			if (intValue > 60.0 && intValue <= 65.0)
-				areaObj.push({"id": mapID, "color": "#FFEB3B"})
+				areaObj.push({"id": mapID, "color": "#FFA000"})
 			else if (intValue > 65.0 && intValue <= 70.0) 
-				areaObj.push({"id": mapID, "color": "#FBC02D"})
+				areaObj.push({"id": mapID, "color": "#F57C00"})
 			else if (intValue > 70.0 && intValue <= 75.0) 
-				areaObj.push({"id": mapID, "color": "#FFC107"})
+				areaObj.push({"id": mapID, "color": "#FF5722"})
 			else if (intValue > 75.0 && intValue <= 80.0) 
 				areaObj.push({"id": mapID, "color": "#FFA000"})
 			else if (intValue > 85.0 ) 
-				areaObj.push({"id": mapID, "color": "#F57C00"})
+				areaObj.push({"id": mapID, "color": "#F44336"})
 			else if(obj.Value == "")
-				areaObj.push({"id": mapID, "color": "#FFEB3B"})
+				areaObj.push({"id": mapID, "color": "#D32F2F"})
+ 
 		}else if(obj.type == "Wind"){
 			if (intValue <= 4.0)
 				areaObj.push({"id": mapID, "color": "#CDDC39"})
@@ -403,6 +553,65 @@ rasm.controller('mainCtrl',['$scope', '$state','$http','$mdSidenav', function($s
 				areaObj.push({"id": mapID, "color": "#D32F2F"})
 			else if(obj.Value == "")
 				areaObj.push({"id": mapID, "color": "#FF9800"})
+		}else if (obj.type == "Flood") {
+			if (intValue > 0 && intValue <= 50.0){
+				areaObj.push({"id": mapID, "color": "#B2EBF2"}) 
+			}
+			else if (intValue > 50.0 && intValue <= 100.0) {
+				areaObj.push({"id": mapID, "color": "#00BCD4"}) 
+			}
+			else if (intValue > 100.0 && intValue <= 150.0) {
+				areaObj.push({"id": mapID, "color": "#448AFF"}) 
+			}
+			else if (intValue > 150.0 && intValue <= 200.0) {
+				areaObj.push({"id": mapID, "color": "#0288D1"}) 
+			}
+			else if (intValue > 200.0 ) {
+				areaObj.push({"id": mapID, "color": "#3F51B5"}) 
+			}
+			else if(obj.Value == "" ){
+				areaObj.push({"id": mapID, "color": "#B2EBF2"}) 
+			}
+		}else if(obj.type == "Cyclone"){
+			if (intValue > 60.0 && intValue <= 65.0)
+				areaObj.push({"id": mapID, "color": "#CDDC39"})
+			else if (intValue > 65.0 && intValue <= 70.0) 
+				areaObj.push({"id": mapID, "color": "#8BC34A"})
+			else if (intValue > 70.0 && intValue <= 75.0) 
+				areaObj.push({"id": mapID, "color": "#689F38"})
+			else if (intValue > 75.0 && intValue <= 80.0) 
+				areaObj.push({"id": mapID, "color": "#4CAF50"})
+			else if (intValue > 85.0 ) 
+				areaObj.push({"id": mapID, "color": "#388E3C"})
+			else if(obj.Value == "")
+				areaObj.push({"id": mapID, "color": "#CDDC39"})
+		}else if(obj.type == "Draught"){
+			if (intValue > 18.0 && intValue <= 22.0)
+				areaObj.push({"id": mapID, "color": "#FF9800"})
+			else if (intValue > 22.0 && intValue <= 26.0) 
+				areaObj.push({"id": mapID, "color": "#F57C00"})
+			else if (intValue > 26.0 && intValue <= 30.0) 
+				areaObj.push({"id": mapID, "color": "#FF5722"})
+			else if (intValue > 30.0 && intValue <= 34.0) 
+				areaObj.push({"id": mapID, "color": "#F44336"})
+			else if (intValue > 34.0 ) 
+				areaObj.push({"id": mapID, "color": "#D32F2F"})
+			else if(obj.Value == "")
+				areaObj.push({"id": mapID, "color": "#FF9800"})
+		}else if(obj.type == "Landslides"){
+			if (intValue > 60.0 && intValue <= 65.0)
+				areaObj.push({"id": mapID, "color": "#FFA000"})
+			else if (intValue > 65.0 && intValue <= 70.0) 
+				areaObj.push({"id": mapID, "color": "#F57C00"})
+			else if (intValue > 70.0 && intValue <= 75.0) 
+				areaObj.push({"id": mapID, "color": "#FF5722"})
+			else if (intValue > 75.0 && intValue <= 80.0) 
+				areaObj.push({"id": mapID, "color": "#FFA000"})
+			else if (intValue > 85.0 ) 
+				areaObj.push({"id": mapID, "color": "#F44336"})
+			else if(obj.Value == "")
+				areaObj.push({"id": mapID, "color": "#D32F2F"})
+ 
 		}
  
 		AmCharts.makeChart( "mapdiv", {
@@ -419,7 +628,8 @@ rasm.controller('mainCtrl',['$scope', '$state','$http','$mdSidenav', function($s
 		   "areasSettings": {
 				"autoZoom": false,
 				"selectedColor": "#CC0000",
-		        "selectable": true
+		        "selectable": true,
+		        "color" :"#FFC107"
 			},
 		  "smallMap": {}
 		} );

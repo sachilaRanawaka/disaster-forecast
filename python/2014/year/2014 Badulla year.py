@@ -81,7 +81,7 @@ print('Variance score: %.2f' % regr.score(x_test, y_test))
 
 # # Plot outputs
 plt.scatter(x_test[:,1], y_test,  color='black')
-plt.plot(x_test[:,1],y_predict, color='blue', linewidth=3,label="rainfall")
+plt.plot(x_test[:,1],y_predict, color='blue', linewidth=3,label="flood")
 
 # plt.xticks(())
 # plt.yticks(())
